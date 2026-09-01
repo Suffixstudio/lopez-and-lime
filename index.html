@@ -432,6 +432,7 @@
     <input type="hidden" name="shopping-list" id="fShopping">
     <input type="hidden" name="addons-selected" id="fAddons">
     <input type="hidden" name="house-picks" id="fHousePicks">
+    <input type="hidden" name="package-selected" id="fPackage">
     <input type="hidden" name="onsite-window" id="fTimeline">
 
     <!-- STEP 1 -->
@@ -706,12 +707,12 @@
       <div class="step-head"><span class="step-num">03</span><h2>Add-ons</h2></div>
       <p class="step-note">Optional. Skip this if you are not sure.</p>
       <div class="addons" id="addons">
-        <label class="addon"><input type="checkbox" name="addon" value="Extra bartender" data-price="300"><span class="addon-name">Extra bartender (4 hrs, subject to availability)</span><span class="addon-price">+$300</span></label>
-        <label class="addon"><input type="checkbox" name="addon" value="Mobile bar add-on" data-price="140" data-only="p1"><span class="addon-name">Add the mobile bar</span><span class="addon-price">+$140</span></label>
-        <label class="addon"><input type="checkbox" name="addon" value="Mocktail / zero-proof station" data-price="150"><span class="addon-name">Zero proof mocktail station</span><span class="addon-price">+$150</span></label>
-        <label class="addon"><input type="checkbox" name="addon" value="Infused water station" data-price="0" data-per="1.5"><span class="addon-name">Infused water station (self-serve, off the bar line)</span><span class="addon-price">+$1.50/guest</span></label>
-        <label class="addon"><input type="checkbox" name="addon" value="Mimosa bar add-on" data-price="0" data-per="4.5" data-key="mimosa"><span class="addon-name">Mimosa bar, unlimited (you supply the bubbly)</span><span class="addon-price">+$4.50/guest</span></label>
-        <label class="addon"><input type="checkbox" name="addon" value="Custom cocktail design" data-price="60"><span class="addon-name">Custom cocktail design session</span><span class="addon-price">+$60</span></label>
+        <label class="addon"><input type="checkbox" value="Extra bartender" data-price="300"><span class="addon-name">Extra bartender (4 hrs, subject to availability)</span><span class="addon-price">+$300</span></label>
+        <label class="addon"><input type="checkbox" value="Mobile bar add-on" data-price="140" data-only="p1"><span class="addon-name">Add the mobile bar</span><span class="addon-price">+$140</span></label>
+        <label class="addon"><input type="checkbox" value="Mocktail / zero-proof station" data-price="150"><span class="addon-name">Zero proof mocktail station</span><span class="addon-price">+$150</span></label>
+        <label class="addon"><input type="checkbox" value="Infused water station" data-price="0" data-per="1.5"><span class="addon-name">Infused water station (self-serve, off the bar line)</span><span class="addon-price">+$1.50/guest</span></label>
+        <label class="addon"><input type="checkbox" value="Mimosa bar add-on" data-price="0" data-per="4.5" data-key="mimosa"><span class="addon-name">Mimosa bar, unlimited (you supply the bubbly)</span><span class="addon-price">+$4.50/guest</span></label>
+        <label class="addon"><input type="checkbox" value="Custom cocktail design" data-price="60"><span class="addon-name">Custom cocktail design session</span><span class="addon-price">+$60</span></label>
       </div>
     </section>
 
@@ -741,20 +742,20 @@
           <h4>House menu</h4>
           <p class="sub">Included with every package. Tap the ones you would like us to have ready. Guests can still ask for anything else on the day.</p>
           <ul class="house-list">
-            <li class="house-pick star"><input type="checkbox" name="house-pick" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopezlimecocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Paloma" id="hp2"><label for="hp2">Paloma</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Mojito" id="hp3"><label for="hp3">Mojito</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Old Fashioned" id="hp4"><label for="hp4">Old Fashioned</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Whiskey Sour" id="hp5"><label for="hp5">Whiskey Sour</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Ranch Water" id="hp6"><label for="hp6">Ranch Water</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Moscow Mule" id="hp7"><label for="hp7">Moscow Mule</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Cosmopolitan" id="hp8"><label for="hp8">Cosmopolitan</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Daiquiri" id="hp9"><label for="hp9">Daiquiri</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Michelada" id="hp10"><label for="hp10">Michelada</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Sangria" id="hp11"><label for="hp11">Sangria</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Beer &amp; wine service" id="hp12"><label for="hp12">Beer &amp; wine service</label></li>
-            <li class="house-pick"><input type="checkbox" name="house-pick" value="Zero proof options" id="hp13"><label for="hp13">Zero proof options</label></li>
+            <li class="house-pick star"><input type="checkbox" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopezlimecocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
+            <li class="house-pick"><input type="checkbox" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
+            <li class="house-pick"><input type="checkbox" value="Paloma" id="hp2"><label for="hp2">Paloma</label></li>
+            <li class="house-pick"><input type="checkbox" value="Mojito" id="hp3"><label for="hp3">Mojito</label></li>
+            <li class="house-pick"><input type="checkbox" value="Old Fashioned" id="hp4"><label for="hp4">Old Fashioned</label></li>
+            <li class="house-pick"><input type="checkbox" value="Whiskey Sour" id="hp5"><label for="hp5">Whiskey Sour</label></li>
+            <li class="house-pick"><input type="checkbox" value="Ranch Water" id="hp6"><label for="hp6">Ranch Water</label></li>
+            <li class="house-pick"><input type="checkbox" value="Moscow Mule" id="hp7"><label for="hp7">Moscow Mule</label></li>
+            <li class="house-pick"><input type="checkbox" value="Cosmopolitan" id="hp8"><label for="hp8">Cosmopolitan</label></li>
+            <li class="house-pick"><input type="checkbox" value="Daiquiri" id="hp9"><label for="hp9">Daiquiri</label></li>
+            <li class="house-pick"><input type="checkbox" value="Michelada" id="hp10"><label for="hp10">Michelada</label></li>
+            <li class="house-pick"><input type="checkbox" value="Sangria" id="hp11"><label for="hp11">Sangria</label></li>
+            <li class="house-pick"><input type="checkbox" value="Beer &amp; wine service" id="hp12"><label for="hp12">Beer &amp; wine service</label></li>
+            <li class="house-pick"><input type="checkbox" value="Zero proof options" id="hp13"><label for="hp13">Zero proof options</label></li>
           </ul>
         </div>
       </div>
@@ -829,13 +830,13 @@
         </div>
         <div class="field">
           <label class="lbl" for="phone">Phone <span class="req">*</span></label>
-          <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(951) 555-0123" required>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(951) 555-0123" maxlength="14" pattern="\(\d{3}\) \d{3}-\d{4}" required>
         </div>
       </div>
 
       <div class="field">
         <label class="lbl" for="email">Email <span class="req">*</span></label>
-        <input type="email" id="email" name="email" autocomplete="email" required>
+        <input type="email" id="email" name="email" autocomplete="email" pattern="[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}" title="Enter a full email address, like name@example.com" required>
       </div>
 
       <div class="field">
@@ -916,7 +917,7 @@
   })();
   var form = $('bk');
 
-  var guests = $('guests'), hours = $('hours'), edate = $('edate'), city = $('city'), notes = $('notes');
+  var guests = $('guests'), hours = $('hours'), edate = $('edate'), city = $('city'), notes = $('notes'), phone = $('phone');
   var estAmt = $('estAmt'), estSub = $('estSub'), estbar = $('estbar');
   var shopBody = $('shopBody'), shopEmpty = $('shopEmpty');
 
@@ -953,6 +954,27 @@
       try{ edate.showPicker(); }catch(e){}
     });
   }
+
+  /* Phone: type=tel accepts any character at all -- browsers deliberately
+     don't restrict it, since phone formats vary by country. This site
+     only serves Southern California, so it's safe to assume a 10-digit
+     US number and enforce it directly: strip anything that isn't a
+     digit as it's typed, cap at 10 digits, and format live the same way
+     the number is written everywhere else on this page. Once the format
+     is full there's nowhere left to type, which covers "only up to a
+     certain amount of numbers" without fighting cursor position on
+     every keystroke. The pattern attribute above then blocks submitting
+     an incomplete number (fewer than 10 digits).*/
+  function formatPhone(digits){
+    digits = digits.slice(0, 10);
+    if(digits.length > 6) return '(' + digits.slice(0,3) + ') ' + digits.slice(3,6) + '-' + digits.slice(6);
+    if(digits.length > 3) return '(' + digits.slice(0,3) + ') ' + digits.slice(3);
+    if(digits.length > 0) return '(' + digits;
+    return '';
+  }
+  phone.addEventListener('input', function(){
+    phone.value = formatPhone(phone.value.replace(/\D/g, ''));
+  });
 
   function checkDate(){
     var w = $('dateWarn');
@@ -1107,6 +1129,7 @@
       boxes[i].classList.toggle('sel', r.checked);
     }
     var p = selectedPkg();
+    $('fPackage').value = p ? p.value : '';
     // mobile bar add-on only applies to Bartender Only
     var mb = form.querySelector('input[data-only=p1]');
     var row = mb.closest('.addon');
@@ -1196,7 +1219,7 @@
     }
 
     // add-ons
-    var boxes = form.querySelectorAll('input[name=addon]:checked');
+    var boxes = form.querySelectorAll('#addons input:checked');
     var n = 0, addonNames = [];
     for(var i=0;i<boxes.length;i++){
       var b = boxes[i];
@@ -1261,7 +1284,7 @@
   }
 
   function housePicks(){
-    var boxes = form.querySelectorAll('input[name=house-pick]:checked');
+    var boxes = form.querySelectorAll('.house-list input:checked');
     var names = [];
     for(var i=0;i<boxes.length;i++) names.push(boxes[i].value);
     $('fHousePicks').value = names.join(', ');
@@ -1393,7 +1416,7 @@
     if(spiritBottles >= 3) sp.push(['Orange liqueur (Cointreau)', '1 × 750ml']);
     group('Spirits', sp);
 
-    group('Beer &amp; wine', [
+    group('Beer & wine', [
       ['Beer', beerCans + ' cans or bottles'],
       ['Wine', wineBottles + ' × 750ml']
     ]);
@@ -1417,7 +1440,7 @@
       mix.push(['Fresh limes', Math.ceil(g/3) + ' limes']);
       mix.push(['Fresh lemons', Math.ceil(g/6) + ' lemons']);
     }
-    group('Mixers &amp; garnish', mix);
+    group('Mixers & garnish', mix);
 
     var sup = [];
     if(weBring){ sup.push(['Ice', 'We bring this']); }
@@ -1430,7 +1453,7 @@
     }
     if(weBring){ sup.push(['Bottled water', 'We bring this']); }
     else { sup.push(['Bottled water', g + ' bottles']); }
-    group('Ice &amp; supplies', sup);
+    group('Ice & supplies', sup);
 
     /* House-menu picks that need something the base list above does not
        cover. Only shown when the customer is buying their own mixers
@@ -1439,7 +1462,7 @@
        that "We bring these" note above. No quantities: how much depends
        on the real recipe and how many guests actually order it. */
     if(!weBring){
-      var picked = form.querySelectorAll('input[name=house-pick]:checked');
+      var picked = form.querySelectorAll('.house-list input:checked');
       var extraNames = [], extraSet = {};
       for(var pi=0; pi<picked.length; pi++){
         var items = EXTRA_ITEMS[picked[pi].value];
@@ -1506,6 +1529,14 @@
     btn.disabled = true; btn.textContent = 'Sending...';
 
     var data = new FormData(form);
+    // The raw radios carry Netlify's own field label (the long marketing
+    // copy in each package's <label>), which makes for a messy line in
+    // the notification email. fPackage above already carries the same
+    // choice as a clean "Name ($price)" string under its own label, so
+    // drop the raw one from what actually gets sent -- the radios
+    // themselves stay untouched, so the required-group validation above
+    // still works exactly as before.
+    data.delete('package');
     var body = new URLSearchParams(data).toString();
     var live = location.protocol === 'http:' || location.protocol === 'https:';
 
