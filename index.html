@@ -717,7 +717,7 @@
 
     <!-- Signature drink photo -->
     <section class="sig-photo">
-      <img src="lopez-lime-signature-photo.jpg" alt="The Lopez & Lime signature cocktail, served in a chili-rimmed glass with a cucumber ribbon and lime wheel garnish. Reposado tequila, mezcal, Grand Marnier, lime juice, agave nectar, Angostura bitters.">
+      <img src="lopezlimesignaturephoto.jpg" alt="The Lopez & Lime signature cocktail, served in a chili-rimmed glass with a cucumber ribbon and lime wheel garnish. Reposado tequila, mezcal, Grand Marnier, lime juice, agave nectar, Angostura bitters.">
     </section>
 
     <!-- STEP 4 -->
@@ -741,7 +741,7 @@
           <h4>House menu</h4>
           <p class="sub">Included with every package. Tap the ones you would like us to have ready. Guests can still ask for anything else on the day.</p>
           <ul class="house-list">
-            <li class="house-pick star"><input type="checkbox" name="house-pick" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopez-lime-cocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
+            <li class="house-pick star"><input type="checkbox" name="house-pick" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopezlimecocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
             <li class="house-pick"><input type="checkbox" name="house-pick" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
             <li class="house-pick"><input type="checkbox" name="house-pick" value="Paloma" id="hp2"><label for="hp2">Paloma</label></li>
             <li class="house-pick"><input type="checkbox" name="house-pick" value="Mojito" id="hp3"><label for="hp3">Mojito</label></li>
@@ -941,6 +941,18 @@
   (function(){
     edate.min = ymd(new Date());
   })();
+
+  /* Some Chromium versions stop opening the calendar popup on a plain
+     click once appearance:none is set above (needed for the custom icon
+     and the iPhone width fix) -- asking for the picker explicitly on
+     click makes it reliable everywhere showPicker() is supported, and is
+     a harmless no-op on the (now rare) browsers without it, which fall
+     back to whatever native click-to-open behavior they already had. */
+  if(edate.showPicker){
+    edate.addEventListener('click', function(){
+      try{ edate.showPicker(); }catch(e){}
+    });
+  }
 
   function checkDate(){
     var w = $('dateWarn');

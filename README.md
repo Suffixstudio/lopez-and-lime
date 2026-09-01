@@ -30,15 +30,15 @@ of HTML, so if your number ever changes, update it in both places.
 
 - `index.html` — the app itself
 - `logo.svg` — your logo, sized for the web. The page loads this file directly, so it must stay named `logo.svg` and sit next to `index.html`, unless you also update the `src` in the masthead.
-- `lopez-lime-cocktail.jpg` — the small round photo next to "The Lopez & Lime" in the house menu. See "The signature drink photos" below.
-- `lopez-lime-signature-photo.jpg` — the full photo shown between Add-ons and Your drinks. Same section.
+- `lopezlimecocktail.jpg` — the small round photo next to "The Lopez & Lime" in the house menu. See "The signature drink photos" below.
+- `lopezlimesignaturephoto.jpg` — the full photo shown between Add-ons and Your drinks. Same section.
 - `brand/` — your original approved master logo files (full-size vector and a 6000px transparent PNG). These are your source files for print: business cards, signage, invoices. Not used by the web app itself, just kept here so they travel with the project. Keep them out of anything that needs a small file size.
 
 ## Deploy
 
 1. Create a new repository on GitHub named `lopez-and-lime`
-2. Upload `index.html`, `logo.svg`, `lopez-lime-cocktail.jpg`,
-   `lopez-lime-signature-photo.jpg`, the `brand` folder, and this README to it
+2. Upload `index.html`, `logo.svg`, `lopezlimecocktail.jpg`,
+   `lopezlimesignaturephoto.jpg`, the `brand` folder, and this README to it
 3. Go to netlify.com, sign in with GitHub
 4. Choose "Add new site", then "Import an existing project"
 5. Pick the `lopez-and-lime` repository
@@ -129,10 +129,11 @@ ways.
 (search for `hp-photo`) so it stands out from the plain-text picks around
 it — it is already the one drink singled out with brass-colored styling
 instead of green, so the photo reinforces that rather than fighting it.
-To swap it, replace `lopez-lime-cocktail.jpg` and keep the same name, or
-update the `src="lopez-lime-cocktail.jpg"` next to `hp0` in the house menu
-list to point at whatever you name it. A few things matter for it to look
-right at that size:
+To swap it, replace `lopezlimecocktail.jpg` and keep the same name, or
+update the `src="lopezlimecocktail.jpg"` next to `hp0` in the house menu
+list to point at whatever you name it (see the naming note at the end of
+this section first). A few things matter for it to look right at that
+size:
 
 - Crop it close and roughly square before you save it — the CSS displays
   it as a 26px circle and crops to a circle automatically, but it crops
@@ -150,16 +151,26 @@ right at that size:
 **The full photo** (search for `sig-photo`) runs as its own section
 between Add-ons and Your drinks — the complete image, title, ingredient
 list, logo and all, at up to 420px wide. To swap it, replace
-`lopez-lime-signature-photo.jpg` and keep the same name, or update the
-`src="lopez-lime-signature-photo.jpg"` in the `sig-photo` section to point
-at whatever you name it. Unlike the small round one, this photo is meant
-to be seen in full, so there is no cropping to worry about — whatever
-aspect ratio you save it at is the aspect ratio it displays at. It is
-still worth resizing and compressing before you save it, though; the
-current photo is saved at 880px wide (about 180KB) rather than its
+`lopezlimesignaturephoto.jpg` and keep the same name, or update the
+`src="lopezlimesignaturephoto.jpg"` in the `sig-photo` section to point
+at whatever you name it (see the naming note below first). Unlike the
+small round one, this photo is meant to be seen in full, so there is no
+cropping to worry about — whatever aspect ratio you save it at is the
+aspect ratio it displays at. It is still worth resizing and compressing
+before you save it, though; the current photo is saved at 880px wide
+(about 180KB) rather than its
 original full camera resolution (which was over 10x that size), since a
 screen showing it at 420px wide has no use for more pixels than that, and
 the extra size would only slow the page down.
+
+**A naming note:** both of these filenames are deliberately one run-on
+word with no hyphens, spaces, or underscores. That is not a style
+preference -- an earlier version used hyphens
+(`lopez-lime-cocktail.jpg`), and they were silently stripped out
+somewhere between downloading the file and uploading it to GitHub,
+which broke both photos on the live site until it was caught. Whatever
+you name a replacement photo, keep it to one unbroken word (letters and
+numbers only) to sidestep that entirely.
 
 ## Adjusting the shopping list math
 
