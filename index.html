@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lopez &amp; Lime | Mobile Bar + Events</title>
+<meta name="description" content="Lopez &amp; Lime. RBS certified mobile bar and event bartending serving San Dimas to Temecula.">
+<meta name="theme-color" content="#12120F">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#12120F;
+    --ink-2:#1D1D18;
+    --ink-3:#2A2A23;
+    --ivory:#F6F2E9;
+    --ivory-2:#EDE7DA;
+    --paper:#FBF9F4;
+    --brass:#C2A15C;
+    --brass-dk:#9E8144;
+    --lime:#9FBF3B;
+    --muted:#6E6A5F;
+    --line:#DCD5C6;
+    --shadow:0 1px 2px rgba(18,18,15,.05), 0 8px 24px rgba(18,18,15,.06);
+    --serif:"Cormorant Garamond",Georgia,"Times New Roman",serif;
+    --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;overflow-x:hidden;width:100%;height:100%}
+  /* App-shell layout: the page scrolls inside .scrollarea, and the
+     estimate bar is a permanent flex row underneath it. This keeps the
+     bar on screen in every context, including file previews and
+     embedded frames where position:fixed is unreliable. */
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    width:100%;max-width:100vw;
+    height:100vh;height:100dvh;
+    display:flex;flex-direction:column;overflow:hidden;
+  }
+  .scrollarea{flex:1 1 auto;overflow-y:auto;overflow-x:hidden;
+    -webkit-overflow-scrolling:touch}
+  img{max-width:100%}
+
+  /* ---------- Masthead ---------- */
+  .masthead{background:var(--ink);color:var(--ivory);padding:44px 20px 38px;text-align:center;position:relative;overflow:hidden}
+  .masthead::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+    background:linear-gradient(90deg,transparent,var(--brass) 20%,var(--brass) 80%,transparent)}
+  .rule{width:44px;height:1px;background:var(--brass);margin:0 auto 18px;opacity:.8}
+  .wordmark{margin:0;line-height:0}
+  .logo-img{width:min(320px,78vw);height:auto;display:block;margin:0 auto}
+  .masthead .tag{margin:20px auto 0;max-width:34ch;font-size:14.5px;color:#C9C4B6}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+  .badge{border:1px solid rgba(194,161,92,.45);color:var(--brass);border-radius:999px;
+    padding:5px 13px;font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:600}
+  /* On a successful submission the full marketing hero used to run
+     again in front of "Request received", so the confirmation itself
+     could end up scrolled below the fold. Shrunk down, it steps out of
+     the way and the checkmark becomes the first thing in view. */
+  .masthead.compact{padding:20px 20px 18px}
+  .masthead.compact .logo-img{width:min(150px,45vw)}
+  .masthead.compact .tag,
+  .masthead.compact .badges{display:none}
+
+  /* ---------- Founding banner ---------- */
+  /* Was a full-width solid lime fill -- read as a retail coupon banner
+     against the black/ivory/brass palette everywhere else on the page.
+     Lime now does the same job as an accent (the rules, the emphasized
+     line) instead of as a large flat surface. */
+  .founding{background:var(--ink);color:var(--ivory);text-align:center;padding:11px 18px;
+    font-size:13px;font-weight:600;letter-spacing:.03em;
+    border-top:1px solid rgba(159,191,59,.5);border-bottom:1px solid rgba(159,191,59,.5)}
+  .founding strong{font-weight:700;color:var(--lime)}
+  .founding-2{display:block;white-space:nowrap}
+  /* Shown by default and removed by script on load. If scripts are
+     blocked (some file previews do this), it stays visible and explains
+     why the live estimate and shopping list are not calculating. */
+  .nojs{background:#FBF0E4;border-bottom:1px solid #EBD5BC;color:#8A4A1E;
+    padding:11px 18px;font-size:13px;text-align:center;line-height:1.45}
+  .nojs b{font-weight:700}
+
+  /* ---------- Layout ---------- */
+  .wrap{max-width:760px;margin:0 auto;padding:0 18px 40px}
+  /* The 760px column and 320px-capped logo were sized for mobile and
+     never grew back up for desktop, so a laptop or monitor showed the
+     same narrow content with a lot of unused space on both sides.
+     This widens the column and lets the logo actually use the extra
+     room above 900px; mobile is untouched. */
+  @media(min-width:900px){
+    .wrap{max-width:900px}
+    .estbar-in{max-width:900px}
+    .logo-img{width:min(400px,78vw)}
+  }
+  .step{padding:38px 0 8px;border-bottom:1px solid var(--line)}
+  .step:last-of-type{border-bottom:0}
+  .step-head{display:flex;align-items:baseline;gap:11px;margin-bottom:6px}
+  .step-num{font-family:var(--serif);font-size:15px;color:var(--brass-dk);font-weight:600;
+    letter-spacing:.1em;flex:none;padding-top:2px}
+  h2{font-family:var(--serif);font-weight:600;font-size:27px;margin:0;letter-spacing:.005em}
+  .step-note{color:var(--muted);font-size:14px;margin:2px 0 22px 0}
+
+  /* ---------- Fields ---------- */
+  /* min-width:0 keeps a grid item from being forced wider than its column
+     by an oversized child (a grid item's automatic minimum size defaults
+     to its content's size, not 0). Kept as a general safeguard, but it
+     was not enough on its own to tame Safari's native date control below
+     — that one needed to stop being a native date input entirely. */
+  .field{margin-bottom:20px;min-width:0}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:0}
+  @media(max-width:560px){.grid2{grid-template-columns:1fr;gap:0}}
+  label.lbl{display:block;font-size:12px;font-weight:600;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--ink);margin-bottom:7px}
+  .req{color:#B4472F}
+  input[type=text],input[type=email],input[type=tel],input[type=number],input[type=date],input[type=time],select,textarea{
+    width:100%;min-width:0;padding:12px 13px;border:1px solid var(--line);border-radius:7px;
+    font:inherit;font-size:16px;background:#fff;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+  /* Event date: a native date input, with Safari's own control skin
+     stripped off (appearance:none) rather than fighting its width —
+     two earlier attempts at sizing it via width/min-width could not
+     keep it inside the screen on iPhone; this changes how the browser
+     lays the control out at all, and is confirmed working there. This
+     rule must come after the shared input rule above: that rule's
+     `background:#fff` is a shorthand, and a shorthand resets every
+     background sub-property it doesn't mention — including our
+     background-image — so declaring it earlier let the shared rule
+     silently erase it. A custom calendar glyph stands in for the
+     native icon appearance:none removes; the native icon itself is
+     hidden explicitly since some browsers (Chromium included) keep
+     drawing it as a separate element regardless of appearance:none on
+     the input. */
+  input[type=date]{
+    -webkit-appearance:none;appearance:none;
+    padding-right:40px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23C2A15C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2'/%3E%3Cline x1='16' y1='2' x2='16' y2='6'/%3E%3Cline x1='8' y1='2' x2='8' y2='6'/%3E%3Cline x1='3' y1='10' x2='21' y2='10'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 13px center;background-size:18px;
+  }
+  input[type=date]::-webkit-calendar-picker-indicator{opacity:0}
+  /* iOS Safari gives date/time inputs an intrinsic min-width from their
+     internal segments that can exceed 100% of a narrow container and push
+     past the edge of the screen. min-width:0 above lets them actually
+     shrink to fit; this belt-and-suspenders rule targets just those two
+     types in case Safari needs it spelled out again more specifically. */
+  input[type=date],input[type=time]{max-width:100%}
+  textarea{min-height:88px;resize:vertical}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--brass);
+    box-shadow:0 0 0 3px rgba(194,161,92,.18)}
+  .hint{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+  .warn{font-size:13px;color:#8A4A1E;background:#FBF0E4;border:1px solid #EBD5BC;
+    border-radius:7px;padding:9px 12px;margin-top:8px;display:none}
+  .warn.on{display:block}
+
+  /* ---------- Packages ---------- */
+  .pkgs{display:grid;gap:13px}
+  .pkg{border:1px solid var(--line);border-radius:11px;background:#fff;overflow:hidden;
+    transition:border-color .18s,box-shadow .18s;position:relative}
+  .pkg:hover{border-color:#C7BEA9}
+  .pkg input{position:absolute;opacity:0;width:0;height:0}
+  .pkg label{display:block;padding:17px 18px;cursor:pointer}
+  .pkg-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+  .pkg-name{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.15}
+  .pkg-cap{font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+  .pkg-price{text-align:right;flex:none}
+  .pkg-now{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--ink);line-height:1}
+  .pkg-was{font-size:12px;color:var(--muted);text-decoration:line-through;margin-top:3px}
+  .pkg-incl{margin:13px 0 0;padding:0;list-style:none;display:grid;
+    grid-template-columns:1fr 1fr;gap:2px 16px}
+  @media(max-width:560px){.pkg-incl{grid-template-columns:1fr}}
+  .pkg-incl li{font-size:13.5px;color:#4A473F;padding-left:15px;position:relative}
+  .pkg-incl li::before{content:"";position:absolute;left:0;top:9px;width:5px;height:5px;
+    border-radius:50%;background:var(--brass)}
+  .pkg-byo{margin-top:12px;padding-top:11px;border-top:1px dashed var(--line);
+    font-size:12.5px;color:var(--muted)}
+  .pkg-byo b{color:#4A473F;font-weight:600}
+  /* Selected states are driven by CSS first, so highlighting still
+     works even where scripts are blocked (some file previews). The
+     matching .sel class is kept for older browsers. A 3px ring read
+     closer to a validation/success state than a premium selection, and
+     didn't match the lighter 2px treatment already used on add-ons --
+     now the same weight and pale-lime tint as those. */
+  .pkg.sel,
+  .pkg:has(input:checked){border-color:var(--lime);background:#F7FBEE;
+    box-shadow:0 0 0 2px var(--lime),var(--shadow)}
+  .pkg.sel .pkg-name,
+  .pkg:has(input:checked) .pkg-name{color:var(--brass-dk)}
+  .popular{position:absolute;top:0;right:0;background:var(--ink);color:var(--brass);
+    font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:4px 11px;
+    border-bottom-left-radius:8px;font-weight:600;z-index:2}
+  /* Reserve room so the badge never sits on top of the price. */
+  .pkg.has-badge > label{padding-top:36px}
+
+  /* ---------- Add-ons ---------- */
+  .addons{display:grid;gap:9px}
+  .addon{display:flex;align-items:center;gap:12px;border:1px solid var(--line);
+    border-radius:8px;padding:12px 14px;background:#fff;cursor:pointer;transition:border-color .15s}
+  .addon:hover{border-color:#C7BEA9}
+  .addon.sel,
+  .addon:has(input:checked){border-color:var(--lime);background:#F7FBEE;
+    box-shadow:0 0 0 2px var(--lime)}
+  .addon input{width:17px;height:17px;accent-color:var(--brass-dk);flex:none;margin:0}
+  .addon-name{flex:1;font-size:14.5px}
+  .addon-price{font-size:14px;font-weight:600;color:var(--brass-dk);white-space:nowrap}
+
+  /* ---------- Shopping list ---------- */
+  .shop{background:var(--ink);color:var(--ivory);border-radius:12px;padding:22px;margin-top:6px}
+  .shop h3{font-family:var(--serif);font-size:20px;margin:0 0 4px;font-weight:600}
+  .shop .sub{font-size:13px;color:#A8A396;margin:0 0 18px}
+  .shop-empty{font-size:14px;color:#A8A396;font-style:italic}
+  .shop-grp{margin-bottom:21px}
+  .shop-grp:last-child{margin-bottom:0}
+  .shop-grp h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);
+    margin:0 0 8px;font-weight:600}
+  .shop-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;
+    border-bottom:1px solid rgba(255,255,255,.07);font-size:14.5px}
+  .shop-row:last-child{border-bottom:0}
+  .shop-row .q{color:var(--brass);font-weight:600;white-space:nowrap}
+  .shop-note{font-size:13px;color:#A8A396;line-height:1.5;margin:0}
+  .shop-foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(194,161,92,.3);
+    font-size:12.5px;color:#A8A396;line-height:1.5}
+  /* Quick reference table. Plain HTML so it is readable even where
+     scripts are blocked. Figures match the live calculation at each
+     bracket ceiling for a 4 hour balanced event. */
+  .ref{margin-top:22px;border:1px solid var(--line);border-radius:11px;
+    background:#fff;overflow:hidden}
+  .ref-head{padding:15px 17px 0}
+  .ref-head h4{font-family:var(--serif);font-size:18px;margin:0 0 3px;font-weight:600}
+  .ref-head p{font-size:12.5px;color:var(--muted);margin:0 0 13px}
+  .ref-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  table.ref-t{border-collapse:collapse;width:100%;min-width:340px;font-size:13.5px}
+  table.ref-t th,table.ref-t td{padding:9px 12px;text-align:right;
+    border-top:1px solid var(--line);white-space:nowrap}
+  table.ref-t th:first-child,table.ref-t td:first-child{text-align:left;font-weight:600}
+  /* Extra room on the last column (Ice) so it isn't flush against the
+     card edge, and slightly larger header labels -- both were cramped
+     enough at mobile widths to feel denser than the rest of the page. */
+  table.ref-t th:last-child,table.ref-t td:last-child{padding-right:16px}
+  table.ref-t thead th{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--brass-dk);border-top:0;padding-top:0;font-weight:600}
+  table.ref-t tbody tr:nth-child(even){background:var(--paper)}
+  .ref-foot{padding:13px 17px;background:var(--paper);border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--muted);line-height:1.5}
+  .ref-rule{display:block;margin-top:11px;padding-top:10px;
+    border-top:1px solid var(--line);color:#4A473F}
+  .ref-rule b{color:var(--ink)}
+  .ref-sizes{display:block;margin-top:8px}
+  .ref-sizes > span{display:block;padding-left:13px;position:relative;margin-bottom:5px}
+  .ref-sizes > span::before{content:"";position:absolute;left:0;top:8px;
+    width:5px;height:5px;border-radius:50%;background:var(--brass)}
+  .ref-sizes b{color:var(--ink)}
+  table.ref-t thead th small{display:block;font-size:9.5px;letter-spacing:.06em;
+    color:var(--muted);font-weight:500;text-transform:none;margin-top:2px}
+
+  /* Timeline: turns the abstract "1 hour beyond your booked hours" into
+     real clock times so the venue window is unambiguous. */
+  .timeline{background:#fff;border:1px solid var(--line);border-radius:11px;
+    padding:17px;margin-top:4px;margin-bottom:22px}
+  .timeline h4{font-family:var(--serif);font-size:17px;margin:0 0 12px;font-weight:600}
+  .tl-row{display:flex;align-items:baseline;gap:12px;padding:6px 0;font-size:14px;
+    border-bottom:1px solid var(--line)}
+  .tl-row:last-child{border-bottom:0}
+  .tl-time{font-weight:700;color:var(--ink);min-width:76px;flex:none;
+    font-variant-numeric:tabular-nums}
+  .tl-what{color:#4A473F}
+  .tl-row.key .tl-time{color:var(--brass-dk)}
+  .tl-row.key .tl-what{font-weight:600;color:var(--ink)}
+  .tl-note{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
+    font-size:12.5px;color:var(--muted);line-height:1.5}
+  .tl-late{background:#FBF0E4;border:1px solid #EBD5BC;color:#8A4A1E;
+    border-radius:7px;padding:9px 12px;margin-top:11px;font-size:12.5px}
+
+  /* Itemised quote inside the page, so the total is readable even if a
+     viewer clips the pinned bar at the bottom of the screen. */
+  .quote{background:var(--ink);color:var(--ivory);border-radius:12px;
+    padding:20px;margin:26px 0 20px}
+  .quote h3{font-family:var(--serif);font-size:20px;margin:0 0 14px;font-weight:600}
+  .q-row{display:flex;justify-content:space-between;gap:14px;font-size:14px;
+    padding:7px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+  .q-row span:last-child{color:var(--brass);font-weight:600;white-space:nowrap}
+  .q-total{display:flex;justify-content:space-between;gap:14px;align-items:baseline;
+    margin-top:13px;padding-top:13px;border-top:1px solid rgba(194,161,92,.4)}
+  .q-total span:first-child{font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--brass);font-weight:600}
+  .q-total span:last-child{font-family:var(--serif);font-size:28px;font-weight:600}
+  .q-warn{background:rgba(194,161,92,.14);border-radius:7px;padding:10px 12px;
+    margin:13px 0 0;font-size:12.5px;color:#E4D9BE}
+  .q-note{margin:12px 0 0;font-size:12px;color:#A8A396;line-height:1.5}
+
+  .profile-row{display:flex;gap:8px;margin-bottom:18px;flex-wrap:wrap}
+  .chip{flex:1;min-width:104px}
+  .chip input{position:absolute;opacity:0;width:0;height:0}
+  .chip label{display:block;text-align:center;padding:9px 8px;border:1px solid var(--line);
+    border-radius:7px;font-size:13px;cursor:pointer;background:#fff;transition:all .15s}
+  .chip input:checked + label{background:var(--ink);color:var(--brass);border-color:var(--ink)}
+
+  /* ---------- Signature drinks ---------- */
+  /* ---------- Signature drink photo ---------- */
+  .sig-photo{padding:30px 0 8px}
+  .sig-photo img{display:block;width:100%;max-width:420px;margin:0 auto;
+    border-radius:12px;box-shadow:var(--shadow)}
+
+  .sig{background:#fff;border:1px solid var(--line);border-radius:11px;padding:18px}
+  .sig-lock{background:#FBF0E4;border:1px solid #EBD5BC;border-radius:8px;padding:12px 14px;
+    font-size:13.5px;color:#8A4A1E;margin-bottom:16px;display:none}
+  .sig-lock.on{display:block}
+  .house{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+  .house h4{font-family:var(--serif);font-size:17px;margin:0 0 3px;font-weight:600}
+  .house p.sub{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+  .house-list{display:flex;flex-wrap:wrap;gap:7px;margin:0;padding:0;list-style:none}
+  .house-list li{font-size:13px;border:1px solid var(--line);border-radius:999px;
+    padding:4px 12px;color:#4A473F;background:var(--paper)}
+  /* The selector must be more specific than ".house-list li" above,
+     otherwise the outer list item keeps its own border and you get a
+     pill drawn inside a pill. */
+  .house-list li.house-pick{padding:0;border:0;background:none;
+    position:relative;border-radius:0}
+  .house-list li.house-pick input{position:absolute;opacity:0;width:0;height:0}
+  /* Weight stays identical selected or not. Bolding on select made the
+     pill wider, which re-wrapped the whole list and made the page jump. */
+  .house-list li.house-pick label{display:inline-block;font-size:13px;
+    font-weight:600;border:1px solid var(--line);border-radius:999px;
+    padding:4px 12px;color:#6E6A5F;background:var(--paper);cursor:pointer;
+    transition:color .15s,background-color .15s,border-color .15s,box-shadow .15s}
+  .house-list li.house-pick input:checked + label{border-color:var(--lime);
+    background:#F0F7E0;color:#4A6415;box-shadow:0 0 0 1px var(--lime)}
+  /* The signature drink gets its own brass color instead of the green
+     everyone else uses, so it still reads as featured -- but it is a
+     real checkbox like the rest, on by choice, not always-on. Whether
+     it fits a given event depends on what alcohol they are buying, so
+     it must not look pre-selected. */
+  .house-list li.house-pick.star label{border-color:var(--brass);
+    background:#FEF9EE;color:var(--brass-dk);
+    display:inline-flex;align-items:center;gap:7px;padding-left:4px}
+  .house-list li.house-pick.star input:checked + label{border-color:var(--brass-dk);
+    background:var(--brass);color:#fff;box-shadow:0 0 0 1px var(--brass-dk)}
+  .hp-photo{width:26px;height:26px;border-radius:50%;object-fit:cover;
+    object-position:50% 30%;flex:none;display:block}
+
+  /* ---------- Estimate bar ---------- */
+  /* This bar is on screen at all times, so its size matters more than any
+     one-off section. Trimmed padding and the dollar amount down (was
+     12px/25px) for a noticeably shorter bar. A thin top rule keeps it
+     visually distinct from the footer, since both sit on the exact same
+     --ink and would otherwise read as one continuous black mass when a
+     visitor scrolls to the very bottom. */
+  .estbar{flex:0 0 auto;background:var(--ink);color:var(--ivory);
+    padding:10px 18px calc(10px + env(safe-area-inset-bottom));z-index:40;
+    border-top:1px solid rgba(194,161,92,.35);
+    box-shadow:0 -4px 20px rgba(18,18,15,.22)}
+  .estbar.hide{display:none}
+  .estbar-in{max-width:760px;margin:0 auto;display:flex;align-items:center;
+    justify-content:space-between;gap:14px}
+  .est-l{min-width:0}
+  .est-lbl{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);font-weight:600}
+  .est-amt{font-family:var(--serif);font-size:22px;font-weight:600;line-height:1.1}
+  .est-sub{font-size:11.5px;color:#A8A396;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .btn{background:var(--brass);color:var(--ink);border:0;border-radius:8px;
+    padding:11px 20px;font:inherit;font-size:15px;font-weight:700;cursor:pointer;
+    letter-spacing:.02em;flex:none;transition:background .15s,opacity .15s}
+  .btn:hover{background:#D3B26C}
+  .btn:active{transform:translateY(1px)}
+  .btn[disabled]{background:#4A473F;color:#8A867B;cursor:not-allowed}
+  /* Before a package is chosen there's nothing to request yet, so the
+     button and $0 shouldn't compete with the hero above it for
+     attention. It steps back up to full strength the moment a real
+     number appears. */
+  .estbar.empty .btn{opacity:.55}
+  .estbar.empty .est-amt{color:#C9C4B6}
+
+  /* ---------- Messages ---------- */
+  .msg{border-radius:9px;padding:15px 17px;margin-bottom:22px;display:none;font-size:14.5px}
+  .msg.on{display:block}
+  .msg.err{background:#FBEAE6;border:1px solid #EFC9BF;color:#8C3218}
+  .done{display:none;text-align:center;padding:56px 20px}
+  .done.on{display:block}
+  .done .mark{width:54px;height:54px;border-radius:50%;background:var(--lime);
+    color:#1B2409;display:flex;align-items:center;justify-content:center;
+    font-size:27px;margin:0 auto 20px;font-weight:700}
+  .done h2{margin-bottom:10px}
+  .done p{color:var(--muted);max-width:44ch;margin:0 auto 10px;font-size:15px}
+  .done .recap{background:#fff;border:1px solid var(--line);border-radius:10px;
+    padding:18px;margin:26px auto 0;max-width:400px;text-align:left}
+  .done .recap div{display:flex;justify-content:space-between;gap:14px;
+    font-size:14px;padding:5px 0}
+  .done .recap div span:first-child{color:var(--muted)}
+  .done .recap div span:last-child{font-weight:600;text-align:right}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ink);color:#8A867B;padding:34px 20px 40px;text-align:center;font-size:12.5px}
+  footer .fw{font-family:var(--serif);color:var(--ivory);font-size:17px;letter-spacing:.13em;
+    text-transform:uppercase;margin-bottom:9px}
+  footer a{color:var(--brass);text-decoration:none}
+  /* #615E56 measured at ~2.9:1 on --ink, well under WCAG AA's 4.5:1 for
+     text this size -- brightened just enough to clear it (~4.6:1) while
+     staying visibly more muted than the footer's own base text above. */
+  footer .legal{margin-top:14px;font-size:11.5px;color:#827E74;max-width:52ch;
+    margin-left:auto;margin-right:auto;line-height:1.5}
+  .hp{position:absolute;left:-9999px}
+</style>
+</head>
+<body>
+<div class="scrollarea">
+
+<header class="masthead" id="masthead">
+  <div class="rule"></div>
+  <h1 class="wordmark"><img class="logo-img" src="logo.svg" alt="Lopez &amp; Lime — Mobile Bar + Events" width="790" height="667"></h1>
+  <p class="tag">A full bar that arrives at your event. You supply the alcohol, we handle everything else.</p>
+  <div class="badges">
+    <span class="badge">RBS Certified</span>
+    <span class="badge">Insured</span>
+    <span class="badge">San Dimas to Temecula</span>
+  </div>
+</header>
+
+<div class="founding" id="foundingBanner">
+  <strong>Founding Client Pricing</strong> &middot; First 10 events only
+  <span class="founding-2">Save $99 on every package</span>
+</div>
+
+<div class="nojs" id="nojsNotice">
+  <b>Preview mode.</b> The live estimate and your alcohol shopping list are not calculating because this viewer has JavaScript turned off. Both work normally on the published site.
+</div>
+
+<div class="wrap">
+
+  <div class="msg err" id="errBox"></div>
+
+  <form id="bk" name="booking" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+    <input type="hidden" name="form-name" value="booking">
+    <p class="hp"><label>Leave blank: <input name="bot-field"></label></p>
+    <input type="hidden" name="estimate" id="fEstimate">
+    <input type="hidden" name="shopping-list" id="fShopping">
+    <input type="hidden" name="addons-selected" id="fAddons">
+    <input type="hidden" name="house-picks" id="fHousePicks">
+    <input type="hidden" name="onsite-window" id="fTimeline">
+
+    <!-- STEP 1 -->
+    <section class="step">
+      <div class="step-head"><span class="step-num">01</span><h2>Your event</h2></div>
+      <p class="step-note">The basics, so we can check the date and size.</p>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="lbl" for="etype">Event type <span class="req">*</span></label>
+          <select id="etype" name="event-type" required>
+            <option value="">Select one</option>
+            <option>Wedding</option>
+            <option>Birthday</option>
+            <option>Quinceañera</option>
+            <option>Anniversary</option>
+            <option>Corporate / Company event</option>
+            <option>Graduation</option>
+            <option>Retirement</option>
+            <option>Bachelor / Bachelorette</option>
+            <option>Baby shower</option>
+            <option>Holiday party</option>
+            <option>Backyard party</option>
+            <option>Cocktail class</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="lbl" for="guests">Guest count <span class="req">*</span></label>
+          <input type="number" id="guests" name="guest-count" min="1" max="400" inputmode="numeric" placeholder="e.g. 60" required>
+          <p class="hint" id="staffHint"></p>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="lbl" for="edate">Event date <span class="req">*</span></label>
+          <input type="date" id="edate" name="event-date" required>
+          <p class="hint">Currently booking Friday evenings, Saturdays, and Sundays.</p>
+          <div class="warn" id="dateWarn"></div>
+        </div>
+        <div class="field">
+          <label class="lbl" for="stime">Bar opens at <span class="req">*</span></label>
+          <!-- A fixed list instead of a native time picker: it guarantees
+               half-hour increments outright rather than hoping the device
+               respects a step attribute (iOS Safari doesn't always), and
+               it renders with the same reliable box as every select below
+               instead of Safari's own native date/time control sizing. -->
+          <select id="stime" name="start-time" required>
+            <option value="" selected disabled>Select a start time</option>
+            <option value="09:00">9:00 AM</option>
+            <option value="09:30">9:30 AM</option>
+            <option value="10:00">10:00 AM</option>
+            <option value="10:30">10:30 AM</option>
+            <option value="11:00">11:00 AM</option>
+            <option value="11:30">11:30 AM</option>
+            <option value="12:00">12:00 PM</option>
+            <option value="12:30">12:30 PM</option>
+            <option value="13:00">1:00 PM</option>
+            <option value="13:30">1:30 PM</option>
+            <option value="14:00">2:00 PM</option>
+            <option value="14:30">2:30 PM</option>
+            <option value="15:00">3:00 PM</option>
+            <option value="15:30">3:30 PM</option>
+            <option value="16:00">4:00 PM</option>
+            <option value="16:30">4:30 PM</option>
+            <option value="17:00">5:00 PM</option>
+            <option value="17:30">5:30 PM</option>
+            <option value="18:00">6:00 PM</option>
+            <option value="18:30">6:30 PM</option>
+            <option value="19:00">7:00 PM</option>
+          </select>
+          <p class="hint">When you want drinks being poured, not when we arrive.</p>
+          <div class="warn" id="stimeWarn"></div>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="lbl" for="hours">Hours of service <span class="req">*</span></label>
+          <select id="hours" name="hours" required>
+            <option value="4">4 hours (included)</option>
+            <option value="5">5 hours (+$70)</option>
+            <option value="6">6 hours (+$140)</option>
+            <option value="7">7 hours (+$210)</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="lbl" for="city">City <span class="req">*</span></label>
+          <select id="city" name="city" required>
+            <option value="">Select one</option>
+            <optgroup label="Service area">
+              <option>Canyon Lake</option><option>Chino</option><option>Chino Hills</option>
+              <option>Claremont</option><option>Corona</option><option>Eastvale</option>
+              <option>Fontana</option><option>Jurupa Valley</option><option>Lake Elsinore</option>
+              <option>Menifee</option><option>Moreno Valley</option><option>Murrieta</option>
+              <option>Norco</option><option>Ontario</option><option>Rancho Cucamonga</option>
+              <option>Rialto</option><option>Riverside</option><option>San Dimas</option>
+              <option>Temecula</option><option>Upland</option><option>Wildomar</option>
+            </optgroup>
+            <option value="Outside service area">Somewhere else</option>
+          </select>
+          <div class="warn" id="cityWarn"></div>
+        </div>
+      </div>
+
+      <div class="timeline" id="timeline">
+        <h4>Your day</h4>
+        <div class="tl-rows" id="tlRows"></div>
+        <p class="tl-note">Setup and breakdown are included in the price, not billed as extra hours. Just make sure your venue lets us in and out during this window.</p>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="lbl" for="venue">Venue or setting</label>
+          <select id="venue" name="venue-type">
+            <option value="">Select one</option>
+            <option>Private home / backyard</option>
+            <option>Event venue or hall</option>
+            <option>Park or outdoor space</option>
+            <option>Office / workplace</option>
+            <option>Not sure yet</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="lbl" for="power">Power access near the bar</label>
+          <select id="power" name="power-access">
+            <option value="">Select one</option>
+            <option>Yes, an outlet is within reach</option>
+            <option>Not sure</option>
+            <option>No power access nearby</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="lbl" for="water">Water access nearby</label>
+          <select id="water" name="water-access">
+            <option value="">Select one</option>
+            <option>Yes</option>
+            <option>Not sure</option>
+            <option>No</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="lbl" for="weather">Outdoors? Rain or heat backup</label>
+          <select id="weather" name="weather-backup">
+            <option value="">Select one</option>
+            <option>Indoor event, not applicable</option>
+            <option>Yes, a covered or indoor backup is available</option>
+            <option>No backup plan yet</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="step">
+      <div class="step-head"><span class="step-num">02</span><h2>Choose a package</h2></div>
+      <p class="step-note">Every package includes an RBS certified bartender, professional bar tools, setup and breakdown, a custom drink menu, and your personalized alcohol shopping list.</p>
+      <p class="hint" style="margin:-12px 0 18px">Prices below are built around the guest counts listed on each card. If your final headcount runs over, we will confirm any adjustment with you before the event, never as a surprise.</p>
+
+      <div class="pkgs" id="pkgs">
+
+        <div class="pkg">
+          <input type="radio" name="package" id="p1" value="Bartender Only ($299)" data-price="299" data-max="50" required>
+          <label for="p1">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-name">Bartender Only</div>
+                <div class="pkg-cap">Up to 4 hours &middot; up to 50 guests</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-now">$299</div>
+                <div class="pkg-was">$398</div>
+              </div>
+            </div>
+            <ul class="pkg-incl">
+              <li>RBS certified bartender</li>
+              <li>Professional bar tools</li>
+              <li>Setup and breakdown</li>
+              <li>Custom drink menu</li>
+              <li>Alcohol shopping list</li>
+              <li>Pre event consultation</li>
+            </ul>
+            <div class="pkg-byo"><b>You provide:</b> alcohol, bar or table, cups, ice, mixers, garnishes</div>
+          </label>
+        </div>
+
+        <div class="pkg has-badge">
+          <input type="radio" name="package" id="p2" value="The Mobile Bar ($425)" data-price="425" data-max="60">
+          <span class="popular">Recommended</span>
+          <label for="p2">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-name">The Mobile Bar</div>
+                <div class="pkg-cap">Up to 4 hours &middot; up to 60 guests</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-now">$425</div>
+                <div class="pkg-was">$524</div>
+              </div>
+            </div>
+            <ul class="pkg-incl">
+              <li>Everything in Bartender Only</li>
+              <li>Our mobile bar</li>
+              <li>Coolers and chilling tubs</li>
+              <li>Cups, napkins, straws</li>
+              <li>Basic garnishes</li>
+              <li>Displayed cocktail menu</li>
+            </ul>
+            <div class="pkg-byo"><b>You provide:</b> alcohol, ice, mixers</div>
+          </label>
+        </div>
+
+        <div class="pkg">
+          <input type="radio" name="package" id="p3" value="Signature Bar ($575)" data-price="575" data-max="60" data-sig="2">
+          <label for="p3">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-name">Signature Bar</div>
+                <div class="pkg-cap">Up to 4 hours &middot; up to 60 guests</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-now">$575</div>
+                <div class="pkg-was">$674</div>
+              </div>
+            </div>
+            <ul class="pkg-incl">
+              <li>Everything in The Mobile Bar</li>
+              <li>2 signature cocktails</li>
+              <li>All mixers and juices</li>
+              <li>House made syrups</li>
+              <li>Fresh garnishes</li>
+              <li>Printed custom menu</li>
+            </ul>
+            <div class="pkg-byo"><b>You provide:</b> alcohol only</div>
+          </label>
+        </div>
+
+        <div class="pkg">
+          <input type="radio" name="package" id="p4" value="Full House ($795)" data-price="795" data-max="120" data-sig="2" data-hours="5">
+          <label for="p4">
+            <div class="pkg-top">
+              <div>
+                <div class="pkg-name">Full House</div>
+                <div class="pkg-cap">Up to 5 hours &middot; up to 120 guests</div>
+              </div>
+              <div class="pkg-price">
+                <div class="pkg-now">$795</div>
+                <div class="pkg-was">$894</div>
+              </div>
+            </div>
+            <ul class="pkg-incl">
+              <li>Everything in Signature Bar</li>
+              <li>2 bartenders</li>
+              <li>2 signature cocktails</li>
+              <li>Extra hour of service</li>
+              <li>Fresh garnish program</li>
+              <li>Full event bar planning</li>
+            </ul>
+            <div class="pkg-byo"><b>You provide:</b> alcohol only</div>
+          </label>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="step">
+      <div class="step-head"><span class="step-num">03</span><h2>Add-ons</h2></div>
+      <p class="step-note">Optional. Skip this if you are not sure.</p>
+      <div class="addons" id="addons">
+        <label class="addon"><input type="checkbox" name="addon" value="Extra bartender" data-price="300"><span class="addon-name">Extra bartender (4 hrs, subject to availability)</span><span class="addon-price">+$300</span></label>
+        <label class="addon"><input type="checkbox" name="addon" value="Mobile bar add-on" data-price="140" data-only="p1"><span class="addon-name">Add the mobile bar</span><span class="addon-price">+$140</span></label>
+        <label class="addon"><input type="checkbox" name="addon" value="Mocktail / zero-proof station" data-price="150"><span class="addon-name">Zero proof mocktail station</span><span class="addon-price">+$150</span></label>
+        <label class="addon"><input type="checkbox" name="addon" value="Infused water station" data-price="0" data-per="1.5"><span class="addon-name">Infused water station (self-serve, off the bar line)</span><span class="addon-price">+$1.50/guest</span></label>
+        <label class="addon"><input type="checkbox" name="addon" value="Mimosa bar add-on" data-price="0" data-per="4.5" data-key="mimosa"><span class="addon-name">Mimosa bar, unlimited (you supply the bubbly)</span><span class="addon-price">+$4.50/guest</span></label>
+        <label class="addon"><input type="checkbox" name="addon" value="Custom cocktail design" data-price="60"><span class="addon-name">Custom cocktail design session</span><span class="addon-price">+$60</span></label>
+      </div>
+    </section>
+
+    <!-- Signature drink photo -->
+    <section class="sig-photo">
+      <img src="lopez-lime-signature-photo.jpg" alt="The Lopez & Lime signature cocktail, served in a chili-rimmed glass with a cucumber ribbon and lime wheel garnish. Reposado tequila, mezcal, Grand Marnier, lime juice, agave nectar, Angostura bitters.">
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="step">
+      <div class="step-head"><span class="step-num">04</span><h2>Your drinks</h2></div>
+      <p class="step-note">We cap signature cocktails at two so every drink comes out right and the line keeps moving.</p>
+
+      <div class="sig">
+        <div class="sig-lock" id="sigLock">Signature cocktails are included with the Signature Bar and Full House packages. You can still tell us what you have in mind below and we will quote it.</div>
+
+        <div class="field">
+          <label class="lbl" for="sig1">Signature cocktail 1</label>
+          <input type="text" id="sig1" name="signature-1" placeholder="A name, a flavor, or a vibe. We build it.">
+        </div>
+        <div class="field" style="margin-bottom:0">
+          <label class="lbl" for="sig2">Signature cocktail 2</label>
+          <input type="text" id="sig2" name="signature-2" placeholder="Optional second drink">
+        </div>
+
+        <div class="house">
+          <h4>House menu</h4>
+          <p class="sub">Included with every package. Tap the ones you would like us to have ready. Guests can still ask for anything else on the day.</p>
+          <ul class="house-list">
+            <li class="house-pick star"><input type="checkbox" name="house-pick" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopez-lime-cocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Paloma" id="hp2"><label for="hp2">Paloma</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Mojito" id="hp3"><label for="hp3">Mojito</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Old Fashioned" id="hp4"><label for="hp4">Old Fashioned</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Whiskey Sour" id="hp5"><label for="hp5">Whiskey Sour</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Ranch Water" id="hp6"><label for="hp6">Ranch Water</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Moscow Mule" id="hp7"><label for="hp7">Moscow Mule</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Cosmopolitan" id="hp8"><label for="hp8">Cosmopolitan</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Daiquiri" id="hp9"><label for="hp9">Daiquiri</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Michelada" id="hp10"><label for="hp10">Michelada</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Sangria" id="hp11"><label for="hp11">Sangria</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Beer &amp; wine service" id="hp12"><label for="hp12">Beer &amp; wine service</label></li>
+            <li class="house-pick"><input type="checkbox" name="house-pick" value="Zero proof options" id="hp13"><label for="hp13">Zero proof options</label></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5 -->
+    <section class="step">
+      <div class="step-head"><span class="step-num">05</span><h2>Your shopping list</h2></div>
+      <p class="step-note">California law requires that you buy and own the alcohol. Here is exactly what to get, calculated from your guest count and hours.</p>
+
+      <div class="profile-row" id="profileRow">
+        <div class="chip"><input type="radio" name="crowd" id="c1" value="Balanced" checked><label for="c1">Balanced</label></div>
+        <div class="chip"><input type="radio" name="crowd" id="c2" value="Cocktail crowd"><label for="c2">Cocktails</label></div>
+        <div class="chip"><input type="radio" name="crowd" id="c3" value="Beer and wine crowd"><label for="c3">Beer &amp; wine</label></div>
+        <div class="chip"><input type="radio" name="crowd" id="c4" value="Light drinkers"><label for="c4">Light</label></div>
+      </div>
+      <p class="hint">Balanced is about half liquor, with beer and wine splitting the rest. Cocktails is almost all liquor. Beer &amp; wine keeps a little liquor on hand but leans on beer and wine. Light orders less of everything, for a lighter-drinking crowd.</p>
+
+      <div class="shop" id="shop">
+        <h3>Alcohol shopping list</h3>
+        <p class="sub">Quantities update automatically once you add your guest count above.</p>
+        <p class="shop-empty" id="shopEmpty">Enter your guest count to see your list.</p>
+        <div id="shopBody"></div>
+      </div>
+
+      <div class="ref">
+        <div class="ref-head">
+          <h4>Quick reference</h4>
+          <p>Rough amounts for a 4 hour event with a balanced crowd. Round up, never down. Ice is only on you for Bartender Only and The Mobile Bar &mdash; Signature Bar and Full House bring it.</p>
+        </div>
+        <div class="ref-scroll">
+          <table class="ref-t">
+            <thead>
+              <tr>
+                <th scope="col">Guests</th>
+                <th scope="col">Liquor<br><small>750ml</small></th>
+                <th scope="col">Beer<br><small>12oz</small></th>
+                <th scope="col">Wine<br><small>750ml</small></th>
+                <th scope="col">Ice</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Up to 25</td><td>3</td><td>29</td><td>4</td><td>38 lb</td></tr>
+              <tr><td>26 to 50</td><td>6</td><td>57</td><td>8</td><td>75 lb</td></tr>
+              <tr><td>51 to 75</td><td>9</td><td>85</td><td>12</td><td>113 lb</td></tr>
+              <tr><td>76 to 100</td><td>12</td><td>113</td><td>15</td><td>150 lb</td></tr>
+              <tr><td>101 to 120</td><td>15</td><td>135</td><td>18</td><td>180 lb</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="ref-foot">
+          <b>Bottle sizes, so you buy the right thing anywhere:</b>
+          <span class="ref-sizes">
+            <span><b>750ml</b> is the standard bottle, sometimes called a fifth. This is what every count above means.</span>
+            <span><b>1.75L</b> is a handle, the big one with the loop on the neck. Common at Costco and warehouse stores. <b>One handle replaces two 750ml bottles.</b></span>
+            <span><b>375ml</b> is a half bottle. Half of a 750ml. Fine for a small event, but usually worse value.</span>
+          </span>
+          <span class="ref-rule">Rule of thumb: <b>one 750ml bottle of liquor per 8 guests</b>, <b>one 750ml bottle of wine per 7 guests</b>, and <b>about one beer per guest</b>.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 6 -->
+    <section class="step">
+      <div class="step-head"><span class="step-num">06</span><h2>Where to reach you</h2></div>
+      <p class="step-note">We reply within 24 hours, usually much faster.</p>
+
+      <div class="grid2">
+        <div class="field">
+          <label class="lbl" for="name">Name <span class="req">*</span></label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label class="lbl" for="phone">Phone <span class="req">*</span></label>
+          <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(951) 555-0123" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="email">Email <span class="req">*</span></label>
+        <input type="email" id="email" name="email" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label class="lbl" for="notes" id="notesLbl">Anything else we should know?</label>
+        <textarea id="notes" name="notes" placeholder="Theme, colors, allergies, power and water access, parking, timeline..."></textarea>
+      </div>
+
+      <div class="quote" id="quoteBox" hidden>
+        <h3>Your quote</h3>
+        <div id="quoteLines"></div>
+        <div class="q-total"><span>Estimated total</span><span id="quoteTotal">$0</span></div>
+        <p class="q-warn" id="quoteWarn" hidden></p>
+        <p class="q-note">An estimate, not a bill. We confirm a final written quote before your event. Alcohol is purchased separately by you.</p>
+      </div>
+
+      <div class="field" style="margin-bottom:0">
+        <label class="lbl" for="heard">How did you find us?</label>
+        <select id="heard" name="referral">
+          <option value="">Select one</option>
+          <option>Google</option><option>Instagram</option><option>Facebook</option>
+          <option>Referral from a friend</option><option>Venue or event planner</option>
+          <option>Saw the QR code</option><option>Other</option>
+        </select>
+      </div>
+    </section>
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="done" id="done">
+    <div class="mark">&#10003;</div>
+    <h2>Request received</h2>
+    <p>Thank you. We have your details, including your shopping list, and will reach out within 24 hours to confirm the date and send your quote.</p>
+    <div class="recap" id="recap"></div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="fw">Lopez &amp; Lime</div>
+  <div>Mobile Bar + Events &middot; Jurupa Valley, California</div>
+  <div style="margin-top:10px">RBS Certified &middot; Insured &middot; Serving San Dimas to Temecula</div>
+  <div style="margin-top:10px">Questions? <a href="tel:+17148732402">Call</a> or <a href="sms:+17148732402">text</a> (714) 873-2402</div>
+  <div class="legal">Lopez &amp; Lime provides professional bartending services and non-alcoholic bar supplies. The client purchases and owns all alcoholic beverages. Prices shown are estimates; a final quote is confirmed in writing before your event.</div>
+</footer>
+
+</div><!-- /scrollarea -->
+
+<div class="estbar" id="estbar">
+  <div class="estbar-in">
+    <div class="est-l">
+      <div class="est-lbl">Estimate</div>
+      <div class="est-amt" id="estAmt">$0</div>
+      <div class="est-sub" id="estSub">Select a package</div>
+    </div>
+    <button type="submit" form="bk" class="btn" id="submitBtn">Request booking</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* =====================================================================
+     EDIT THESE TWO LINES BEFORE YOU GO LIVE
+     They only show up if a submission fails, so a customer never
+     gets stuck with no way to reach you.
+     ===================================================================== */
+  var MY_PHONE = "(714) 873-2402";
+  var MY_EMAIL = "lopezandlime@gmail.com";
+  /* ===================================================================== */
+
+  var $ = function(id){ return document.getElementById(id); };
+
+  /* Scripts are clearly running, so drop the preview-mode notice. */
+  (function(){
+    var n = document.getElementById('nojsNotice');
+    if(n && n.parentNode) n.parentNode.removeChild(n);
+  })();
+  var form = $('bk');
+
+  var guests = $('guests'), hours = $('hours'), edate = $('edate'), city = $('city'), notes = $('notes');
+  var estAmt = $('estAmt'), estSub = $('estSub'), estbar = $('estbar');
+  var shopBody = $('shopBody'), shopEmpty = $('shopEmpty');
+
+  /* Cities farther from Jurupa Valley. Flat travel fee, not per
+     mile, to keep it simple on the form. Edit the number or the
+     city list to match your real costs. */
+  var TRAVEL_FEE = 30;
+  var EXTRA_HOUR = 70;   // price of each hour beyond what the package includes
+  var EXTENDED_CITIES = ['Canyon Lake','Chino Hills','Claremont','Lake Elsinore','Menifee','Murrieta','San Dimas','Temecula','Upland','Wildomar'];
+
+  /* ---- date: default + weekend check ----
+     Formatted from local date parts. toISOString() converts to UTC,
+     which in California is already tomorrow after 5pm, so it was
+     capable of blocking today or defaulting a day late. */
+  function ymd(d){
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
+  }
+  /* No default date. This used to auto-fill 21 days out, which meant a
+     customer could tab straight through and submit a real request for a
+     date they never actually chose. min still blocks the past. */
+  (function(){
+    edate.min = ymd(new Date());
+  })();
+
+  function checkDate(){
+    var w = $('dateWarn');
+    if(!edate.value){ w.className = 'warn'; return; }
+    // parse as local date to avoid UTC shift
+    var p = edate.value.split('-');
+    var d = new Date(+p[0], +p[1]-1, +p[2]);
+    var day = d.getDay(); // 0 Sun, 5 Fri, 6 Sat
+    if(day === 0 || day === 5 || day === 6){
+      w.className = 'warn';
+    } else {
+      w.textContent = 'That is a ' + ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][day] +
+        '. We normally book Friday evenings, Saturdays and Sundays, but send it anyway and we will see what we can do.';
+      w.className = 'warn on';
+    }
+  }
+
+  /* ---- timeline ----
+     Setup and breakdown bracket the booked hours. Both are included in
+     the package price; they are not billable hours. Last call comes
+     before the bar actually closes, not at the same instant — enough
+     of a gap for a guest to get and finish one more drink. */
+  var SETUP_MIN = 30, BREAKDOWN_MIN = 30, LAST_CALL_MIN = 15;
+
+  function fmtTime(mins){
+    mins = ((mins % 1440) + 1440) % 1440;          // wrap past midnight
+    var h = Math.floor(mins / 60), m = mins % 60;
+    var ampm = h < 12 ? 'AM' : 'PM';
+    var h12 = h % 12; if(h12 === 0) h12 = 12;
+    return h12 + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+  }
+
+  /* Longer bookings can't start as late. Bartending should never run
+     past LATEST_CLOSE_MIN, so the start-time list disables any option
+     that would push closing time beyond it for the currently selected
+     hours, and snaps the pick earlier if it no longer fits. */
+  var LATEST_CLOSE_MIN = 23 * 60 + 30; // 11:30 PM
+
+  function clampStartTime(){
+    var st = $('stime'), w = $('stimeWarn');
+    if(!st) return;
+    var h = parseInt(hours.value, 10) || 4;
+    var maxStart = LATEST_CLOSE_MIN - (h * 60);
+
+    var opts = st.options, needSnap = false, anyDisabled = false;
+    for(var i = 0; i < opts.length; i++){
+      if(opts[i].value === '') continue; // the "Select a start time" placeholder, not a real option
+      var bits = opts[i].value.split(':');
+      var mins = (parseInt(bits[0],10) * 60) + parseInt(bits[1],10);
+      var tooLate = mins > maxStart;
+      opts[i].disabled = tooLate;
+      if(tooLate){
+        anyDisabled = true;
+        if(opts[i].selected) needSnap = true;
+      }
+    }
+    if(needSnap){
+      for(var j = opts.length - 1; j >= 0; j--){
+        if(!opts[j].disabled){ st.value = opts[j].value; break; }
+      }
+    }
+    if(w){
+      if(anyDisabled){
+        w.textContent = 'For ' + h + ' hours of service, the latest start time is ' +
+          fmtTime(maxStart) + ', so bartending wraps up by 11:30 PM.';
+        w.className = 'warn on';
+      } else {
+        w.className = 'warn';
+      }
+    }
+  }
+
+  function timeline(){
+    var box = $('timeline');
+    if(!box) return;
+    var st = $('stime');
+    if(!st || !st.value){ box.style.display = 'none'; return; }
+    box.style.display = '';
+
+    var bits = st.value.split(':');
+    var open = (parseInt(bits[0],10) * 60) + parseInt(bits[1],10);
+    var h = parseInt(hours.value,10) || 4;
+    var arrive   = open - SETUP_MIN;
+    var close    = open + (h * 60);
+    var lastCall = close - LAST_CALL_MIN;
+    var done     = close + BREAKDOWN_MIN;
+
+    var rows = [
+      [fmtTime(arrive),   'We arrive and set up', false],
+      [fmtTime(open),     'Bar opens', true],
+      [fmtTime(lastCall), 'Last call', true],
+      [fmtTime(close),    'Bar closes', true],
+      [fmtTime(done),     'Packed up and gone', false]
+    ];
+    var html = '';
+    for(var i=0;i<rows.length;i++){
+      html += '<div class="tl-row' + (rows[i][2] ? ' key' : '') + '">' +
+              '<span class="tl-time">' + rows[i][0] + '</span>' +
+              '<span class="tl-what">' + rows[i][1] + '</span></div>';
+    }
+    /* Crossing midnight is worth flagging: venues and city noise rules
+       commonly cut off well before then. */
+    if(done >= 1440){
+      html += '<div class="tl-late">This runs past midnight. Double check your venue allows it, ' +
+              'and note many cities have noise limits after 10pm.</div>';
+    } else if(close >= 1380){ // 11pm
+      html += '<div class="tl-late">A late finish. Worth confirming your venue is fine with it.</div>';
+    }
+    $('tlRows').innerHTML = html;
+
+    var summary = fmtTime(arrive) + ' arrive, ' + fmtTime(open) + ' bar opens, ' +
+                  fmtTime(lastCall) + ' last call, ' + fmtTime(close) + ' closes, ' + fmtTime(done) + ' packed up';
+    var f = $('fTimeline'); if(f) f.value = summary;
+  }
+
+  function checkCity(){
+    var w = $('cityWarn');
+    var outside = city.value === 'Outside service area';
+    // "Somewhere else" used to leave Notes optional, so a customer could
+    // submit with no actual location anywhere on the form while the page
+    // still showed a normal-looking price. Notes becomes required in this
+    // one case so we always get an actual place to price against.
+    notes.required = outside;
+    var lbl = $('notesLbl');
+    if(lbl){
+      lbl.innerHTML = outside
+        ? 'Where is your event, and anything else we should know? <span class="req">*</span>'
+        : 'Anything else we should know?';
+    }
+    notes.placeholder = outside
+      ? 'City or venue name, so we can figure out travel -- then anything else: theme, colors, allergies, power and water access, parking, timeline...'
+      : 'Theme, colors, allergies, power and water access, parking, timeline...';
+
+    if(outside){
+      w.textContent = 'Tell us where in the notes below (required) -- anything past about 45 minutes from Jurupa Valley may include a travel fee we will confirm with you.';
+      w.className = 'warn on';
+    } else if(EXTENDED_CITIES.indexOf(city.value) !== -1){
+      w.textContent = 'This area includes a $' + TRAVEL_FEE + ' travel fee, already added to your estimate below.';
+      w.className = 'warn on';
+    } else { w.className = 'warn'; }
+  }
+
+  /* ---- packages ---- */
+  function selectedPkg(){ return form.querySelector('input[name=package]:checked'); }
+
+  function paintPkgs(){
+    var boxes = document.querySelectorAll('.pkg');
+    for(var i=0;i<boxes.length;i++){
+      var r = boxes[i].querySelector('input');
+      /* Toggle only the one class. Assigning className wholesale wiped
+         out has-badge and broke the badge spacing. */
+      boxes[i].classList.toggle('sel', r.checked);
+    }
+    var p = selectedPkg();
+    // mobile bar add-on only applies to Bartender Only
+    var mb = form.querySelector('input[data-only=p1]');
+    var row = mb.closest('.addon');
+    if(p && p.id !== 'p1'){
+      mb.checked = false; mb.disabled = true;
+      // .42 opacity measured well under WCAG AA (~2.7:1) -- easy to
+      // mistake for a rendering glitch rather than an intentional
+      // "not available here" state. .6 keeps it clearly de-emphasized
+      // while staying legible, and the price becomes a plain label
+      // instead of a crossed-out-feeling dollar amount.
+      row.style.opacity = .6; row.style.cursor = 'not-allowed';
+      row.querySelector('.addon-name').textContent = 'Add the mobile bar (already included)';
+      row.querySelector('.addon-price').textContent = 'Included';
+    } else {
+      mb.disabled = false;
+      row.style.opacity = 1; row.style.cursor = 'pointer';
+      row.querySelector('.addon-name').textContent = 'Add the mobile bar';
+      row.querySelector('.addon-price').textContent = '+$140';
+    }
+    // signature drinks availability
+    $('sigLock').className = (p && p.dataset.sig) ? 'sig-lock' : 'sig-lock on';
+    /* Hours baseline. Full House includes 5 hours, everything else 4.
+       The option VALUE must be the real number of hours, not just the
+       label, or the surcharge and the shopping list drift out of step
+       with what the customer was shown. Keep the actual hour COUNT
+       across a package switch, not the dropdown position -- keeping
+       position meant 7 hours on Signature Bar silently became 8 hours
+       on Full House, since both packages put a different hour count at
+       that same 4th slot. Clamp into whatever range the new package
+       actually offers, since the exact count may no longer be valid. */
+    var baseHours = (p && p.dataset.hours === '5') ? 5 : 4;
+    var prevHours = parseInt(hours.value, 10) || baseHours;
+    for(var k = 0; k < hours.options.length; k++){
+      var hrs = baseHours + k;
+      hours.options[k].value = String(hrs);
+      hours.options[k].textContent = hrs + ' hours (' +
+        (k === 0 ? 'included' : '+$' + (k * EXTRA_HOUR)) + ')';
+    }
+    var maxHours = baseHours + hours.options.length - 1;
+    var clampedHours = Math.max(baseHours, Math.min(maxHours, prevHours));
+    hours.selectedIndex = clampedHours - baseHours;
+  }
+
+  function paintAddons(){
+    var rows = document.querySelectorAll('.addon');
+    for(var i=0;i<rows.length;i++){
+      var c = rows[i].querySelector('input');
+      rows[i].classList.toggle('sel', c.checked);
+    }
+  }
+
+  /* ---- staffing hint ---- */
+  function staffHint(){
+    var g = parseInt(guests.value,10) || 0;
+    var h = $('staffHint');
+    if(!g){ h.textContent = ''; return; }
+    if(g > 120){ h.textContent = 'Over 120 guests. We will quote this one individually.'; }
+    else if(g > 60){ h.textContent = 'At ' + g + ' guests we recommend two bartenders.'; }
+    else { h.textContent = 'One bartender handles this comfortably.'; }
+  }
+
+  /* ---- estimate ---- */
+  function estimate(){
+    var p = selectedPkg();
+    var qBox = $('quoteBox');
+    if(!p){
+      estAmt.textContent = '$0';
+      estSub.textContent = 'Select a package';
+      estbar.className = 'estbar empty';
+      $('fEstimate').value = '';
+      if(qBox) qBox.hidden = true;
+      return;
+    }
+    var g = parseInt(guests.value,10) || 0;
+    var base = parseInt(p.dataset.price,10);
+    var total = base;
+    var pkgName = p.value.replace(/\s*\(\$\d+\)/,'');
+    var parts = [pkgName];
+    var lines = [[pkgName, base]];
+
+    // extra hours
+    var extra = parseInt(hours.value,10) - (p.dataset.hours === '5' ? 5 : 4);
+    if(extra > 0){
+      total += extra * EXTRA_HOUR;
+      parts.push('+' + extra + 'hr');
+      lines.push([extra + ' extra hour' + (extra>1?'s':''), extra * EXTRA_HOUR]);
+    }
+
+    // add-ons
+    var boxes = form.querySelectorAll('input[name=addon]:checked');
+    var n = 0, addonNames = [];
+    for(var i=0;i<boxes.length;i++){
+      var b = boxes[i];
+      if(b.disabled) continue;
+      var cost;
+      if(b.dataset.per){ cost = Math.round(parseFloat(b.dataset.per) * g); }
+      else { cost = parseInt(b.dataset.price,10); }
+      total += cost;
+      n++; addonNames.push(b.value);
+      lines.push([b.value + (b.dataset.per ? ' (' + g + ' guests)' : ''), cost]);
+    }
+    if(n) parts.push(n + ' add-on' + (n>1?'s':''));
+    $('fAddons').value = addonNames.join(', ');
+
+    // travel fee for the extended part of the service area
+    if(EXTENDED_CITIES.indexOf(city.value) !== -1){
+      total += TRAVEL_FEE;
+      parts.push('$' + TRAVEL_FEE + ' travel');
+      lines.push(['Travel to ' + city.value, TRAVEL_FEE]);
+    }
+
+    // "Somewhere else" has no fee to calculate yet -- say so plainly
+    // rather than letting the total look like it already accounts for it.
+    var outsideArea = city.value === 'Outside service area';
+    if(outsideArea) parts.push('travel fee TBD for your area');
+
+    // over-capacity note
+    var cap = parseInt(p.dataset.max,10);
+    var over = g > cap;
+    if(over) parts.push('over ' + cap + ' guests, quote may adjust');
+
+    // itemised quote in the page itself
+    if(qBox){
+      var qh = '';
+      for(var L=0; L<lines.length; L++){
+        qh += '<div class="q-row"><span>' + lines[L][0] +
+              '</span><span>$' + lines[L][1].toLocaleString('en-US') + '</span></div>';
+      }
+      $('quoteLines').innerHTML = qh;
+      $('quoteTotal').textContent = '$' + total.toLocaleString('en-US');
+      var warn = $('quoteWarn');
+      var warnMsgs = [];
+      if(over){
+        warnMsgs.push('This package covers up to ' + cap + ' guests and you have ' + g +
+          '. We will confirm any adjustment with you before the event.');
+      }
+      if(outsideArea){
+        warnMsgs.push('Your travel fee is not in this total yet since we do not have your ' +
+          'location -- tell us in the notes below and we will confirm it with your quote.');
+      }
+      if(warnMsgs.length){
+        warn.textContent = warnMsgs.join(' ');
+        warn.hidden = false;
+      } else { warn.hidden = true; }
+      qBox.hidden = false;
+    }
+
+    estAmt.textContent = '$' + total.toLocaleString('en-US');
+    estSub.textContent = parts.join(' · ');
+    estbar.className = 'estbar';
+    $('fEstimate').value = '$' + total + ' (' + parts.join(', ') + ')';
+  }
+
+  function housePicks(){
+    var boxes = form.querySelectorAll('input[name=house-pick]:checked');
+    var names = [];
+    for(var i=0;i<boxes.length;i++) names.push(boxes[i].value);
+    $('fHousePicks').value = names.join(', ');
+  }
+
+  /* ---- shopping list ----
+
+     Not every guest drinks. There are always designated drivers,
+     non-drinkers, and people nursing one beer all night. Planning for
+     100% sends clients to buy alcohol they will only return.
+     Lower DRINKING_SHARE to recommend less, raise it toward 1 to
+     recommend more. The quick-reference table in the HTML is built on
+     this same number, so change both together if you edit it. */
+  var DRINKING_SHARE = 0.75;
+
+  var PROFILES = {
+    'Balanced':          { spirit:.50, beer:.30, wine:.20, rate:1.00 },
+    'Cocktail crowd':    { spirit:.75, beer:.15, wine:.10, rate:1.00 },
+    'Beer and wine crowd':{ spirit:.15, beer:.55, wine:.30, rate:1.00 },
+    'Light drinkers':    { spirit:.45, beer:.30, wine:.25, rate:0.65 }
+  };
+
+  /* Some house-menu picks need something beyond the base spirits, beer,
+     wine, and standard mixers already on the list above. This is a
+     heads-up, not a quantity -- how much depends on your own recipe and
+     how many guests actually order that specific drink, which the
+     crowd-profile math above has no way to know. Picks not listed here
+     (Margarita, Cosmopolitan, Beer & wine service) are already covered
+     by the base list. The Lopez & Lime needs reposado tequila
+     specifically -- the base list only ever suggests blanco -- which is
+     also exactly why it is not pre-checked: an event with no tequila
+     planned at all should not quietly promise a tequila drink. */
+  var EXTRA_ITEMS = {
+    'The Lopez & Lime':   ['Reposado tequila'],
+    'Paloma':             ['Grapefruit soda (Jarritos or Squirt)'],
+    'Mojito':             ['Mint'],
+    'Old Fashioned':      ['Bitters', 'Simple syrup', 'Orange peel or cocktail cherries'],
+    'Whiskey Sour':       ['Simple syrup'],
+    'Ranch Water':        ['Topo Chico or sparkling mineral water'],
+    'Moscow Mule':        ['Ginger beer'],
+    'Daiquiri':           ['Simple syrup'],
+    'Michelada':          ['Clamato or tomato juice', 'Hot sauce', 'Tajín or chili-lime seasoning'],
+    'Sangria':            ['Brandy', 'Orange liqueur', 'Fresh fruit for the pitcher'],
+    'Zero proof options': ['Extra sparkling water, juice, or NA spirits for mocktails']
+  };
+
+  function shopping(){
+    var g = parseInt(guests.value,10) || 0;
+    var h = parseInt(hours.value,10) || 4;
+    if(!g){
+      shopEmpty.style.display = 'block';
+      shopBody.innerHTML = '';
+      $('fShopping').value = '';
+      return;
+    }
+    shopEmpty.style.display = 'none';
+
+    var crowdEl = form.querySelector('input[name=crowd]:checked');
+    var crowd = crowdEl ? crowdEl.value : 'Balanced';
+    var pf = PROFILES[crowd];
+
+    // 2 drinks in hour one, 1 per hour after, across the guests who drink
+    var drinks = Math.round(g * (2 + (h - 1)) * pf.rate * DRINKING_SHARE);
+
+    var spiritDrinks = drinks * pf.spirit;
+    var beerDrinks   = drinks * pf.beer;
+    var wineDrinks   = drinks * pf.wine;
+
+    // 750ml spirits = ~16 pours at 1.5oz; 750ml wine = 5 glasses
+    var spiritBottles = Math.ceil(spiritDrinks / 16);
+    var wineBottles   = Math.ceil(wineDrinks / 5);
+    var beerCans      = Math.ceil(beerDrinks);
+
+    // split spirits: tequila and vodka lead, then whiskey and rum
+    function split(total, w){ return Math.max(w > 0 ? 1 : 0, Math.round(total * w)); }
+    var tequila = split(spiritBottles,.34), vodka = split(spiritBottles,.28);
+    var whiskey = split(spiritBottles,.22), rum = split(spiritBottles,.16);
+    /* Rounding each share on its own can lose or gain a bottle against
+       the total. Settle the difference on tequila, the largest share,
+       so the parts always add up to spiritBottles. */
+    var drift = spiritBottles - (tequila + vodka + whiskey + rum);
+    tequila = Math.max(1, tequila + drift);
+    if(spiritBottles < 4){ // small events: keep it simple
+      if(spiritBottles <= 1){
+        /* One bottle total means one bottle, not one of each. Tequila,
+           since the signature drink is built on it. */
+        tequila = spiritBottles; vodka = 0;
+      } else {
+        tequila = Math.ceil(spiritBottles*.5); vodka = spiritBottles - tequila;
+      }
+      whiskey = 0; rum = 0;
+    }
+
+    var p = selectedPkg();
+    var weBring = p && (p.id === 'p3' || p.id === 'p4');
+    var weBringCups = p && p.id !== 'p1';
+
+    var html = '';
+    var plain = [];
+
+    function group(title, rows){
+      if(!rows.length) return;
+      html += '<div class="shop-grp"><h4>' + title + '</h4>';
+      plain.push(title.toUpperCase());
+      for(var i=0;i<rows.length;i++){
+        html += '<div class="shop-row"><span>' + rows[i][0] + '</span><span class="q">' + rows[i][1] + '</span></div>';
+        plain.push('  ' + rows[i][0] + ': ' + rows[i][1]);
+      }
+      html += '</div>';
+    }
+
+    /* Past 3 bottles of one spirit, a 1.75L handle is fewer trips and
+       cheaper per ounce. One handle replaces roughly two 750s. */
+    function bottleQty(n){
+      if(n >= 3){
+        var handles = Math.floor(n / 2);
+        var rest = n - (handles * 2);
+        return handles + ' × 1.75L handle' + (handles > 1 ? 's' : '') +
+               (rest ? ' + ' + rest + ' × 750ml' : '');
+      }
+      return n + ' × 750ml';
+    }
+
+    var sp = [];
+    if(tequila) sp.push(['Blanco tequila', bottleQty(tequila)]);
+    if(vodka)   sp.push(['Vodka', bottleQty(vodka)]);
+    if(whiskey) sp.push(['Whiskey or bourbon', bottleQty(whiskey)]);
+    if(rum)     sp.push(['White rum', bottleQty(rum)]);
+    if(spiritBottles >= 3) sp.push(['Orange liqueur (Cointreau)', '1 × 750ml']);
+    group('Spirits', sp);
+
+    group('Beer &amp; wine', [
+      ['Beer', beerCans + ' cans or bottles'],
+      ['Wine', wineBottles + ' × 750ml']
+    ]);
+
+    var mimosaBox = form.querySelector('input[data-key=mimosa]');
+    if(mimosaBox && mimosaBox.checked){
+      group('For the mimosa bar', [
+        ['Sparkling wine (brut or prosecco)', Math.ceil(g/6) + ' × 750ml']
+      ]);
+    }
+
+    var mix = [];
+    if(weBring){
+      mix.push(['Mixers, juices, syrups', 'We bring these']);
+      mix.push(['Fresh garnishes', 'We bring these']);
+    } else {
+      mix.push(['Club soda / tonic', Math.ceil(g/8) + ' × 2L']);
+      mix.push(['Cola and lemon-lime', Math.ceil(g/6) + ' × 2L']);
+      mix.push(['Cranberry juice', Math.ceil(g/14) + ' × 64oz']);
+      mix.push(['Orange juice', Math.ceil(g/14) + ' × 64oz']);
+      mix.push(['Fresh limes', Math.ceil(g/3) + ' limes']);
+      mix.push(['Fresh lemons', Math.ceil(g/6) + ' lemons']);
+    }
+    group('Mixers &amp; garnish', mix);
+
+    var sup = [];
+    if(weBring){ sup.push(['Ice', 'We bring this']); }
+    else { sup.push(['Ice', Math.ceil(g * 1.5) + ' lbs']); }
+    if(weBringCups){ sup.push(['Cups, napkins, straws', 'We bring these']); }
+    else {
+      sup.push(['Cups', (g * 3) + ' (16oz)']);
+      sup.push(['Cocktail napkins', (g * 3) + '']);
+      sup.push(['Straws', (g * 2) + '']);
+    }
+    if(weBring){ sup.push(['Bottled water', 'We bring this']); }
+    else { sup.push(['Bottled water', g + ' bottles']); }
+    group('Ice &amp; supplies', sup);
+
+    /* House-menu picks that need something the base list above does not
+       cover. Only shown when the customer is buying their own mixers
+       (Bartender Only / The Mobile Bar) -- on the packages where we
+       already bring mixers and garnish, we bring these too, covered by
+       that "We bring these" note above. No quantities: how much depends
+       on the real recipe and how many guests actually order it. */
+    if(!weBring){
+      var picked = form.querySelectorAll('input[name=house-pick]:checked');
+      var extraNames = [], extraSet = {};
+      for(var pi=0; pi<picked.length; pi++){
+        var items = EXTRA_ITEMS[picked[pi].value];
+        if(!items) continue;
+        extraNames.push(picked[pi].value);
+        for(var ei=0; ei<items.length; ei++){ extraSet[items[ei]] = true; }
+      }
+      var extraList = Object.keys(extraSet);
+      if(extraList.length){
+        html += '<div class="shop-grp"><h4>For your house menu picks</h4>' +
+          '<p class="shop-note">You picked ' + extraNames.join(', ') + '. Grab these too: ' +
+          extraList.join(', ') + '. A little of each goes a long way — guests trying a ' +
+          'specialty drink will not go through as much as the core bar.</p></div>';
+        plain.push('HOUSE MENU EXTRAS (for ' + extraNames.join(', ') + '): ' + extraList.join(', '));
+      }
+    }
+
+    html += '<div class="shop-foot">Based on ' + g + ' guests over ' + h + ' hours (' + crowd.toLowerCase() +
+      '), assuming about ' + Math.round(DRINKING_SHARE * 100) + '% of them drink, which allows for designated drivers and non-drinkers. ' +
+      'Planning math: 2 drinks in the first hour, then 1 per hour. ' +
+      'Buy from one store with a return policy on unopened bottles, and you can take back whatever you do not use.</div>';
+
+    shopBody.innerHTML = html;
+    $('fShopping').value = plain.join('\n');
+  }
+
+  /* ---- recalc ---- */
+  function recalc(){
+    paintPkgs(); paintAddons(); staffHint();
+    clampStartTime();
+    checkDate(); checkCity(); timeline(); estimate(); shopping(); housePicks();
+  }
+
+  form.addEventListener('change', recalc);
+  form.addEventListener('input', function(e){
+    if(e.target === guests){ staffHint(); estimate(); shopping(); }
+  });
+
+  /* Safety net. Some preview and embedded environments don't
+     reliably bubble a native change event from a styled radio or
+     checkbox row up to the form listener above. This re-runs the
+     totals after any interaction anywhere on the page, so the
+     estimate and shopping list never go stale no matter where
+     this file is opened. */
+  /* Scoped to the form rather than the whole document. Listening on
+     document meant every click anywhere rebuilt the shopping list. */
+  form.addEventListener('click', function(){ setTimeout(recalc, 0); });
+
+  /* ---- submit ---- */
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var err = $('errBox');
+    err.className = 'msg err';
+
+    if(!form.checkValidity()){
+      var first = form.querySelector(':invalid');
+      if(first){ first.focus(); first.scrollIntoView({behavior:'smooth', block:'center'}); }
+      err.textContent = 'A few required fields still need filling in.';
+      err.className = 'msg err on';
+      return;
+    }
+
+    var btn = $('submitBtn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+
+    var data = new FormData(form);
+    var body = new URLSearchParams(data).toString();
+    var live = location.protocol === 'http:' || location.protocol === 'https:';
+
+    function succeed(){
+      var p = selectedPkg();
+      $('recap').innerHTML =
+        '<div><span>Package</span><span>' + (p ? p.value.replace(/\s*\(\$\d+\)/,'') : '—') + '</span></div>' +
+        '<div><span>Date</span><span>' + (edate.value || '—') + '</span></div>' +
+        '<div><span>Guests</span><span>' + (guests.value || '—') + '</span></div>' +
+        '<div><span>Estimate</span><span>' + estAmt.textContent + '</span></div>';
+      form.style.display = 'none';
+      document.getElementById('foundingBanner').style.display = 'none';
+      $('masthead').classList.add('compact');
+      $('done').className = 'done on';
+      estbar.className = 'estbar hide';
+      var sa = document.querySelector('.scrollarea');
+      if(sa){ sa.scrollTo({top:0, behavior:'smooth'}); }
+      else { window.scrollTo({top:0, behavior:'smooth'}); }
+    }
+
+    function fail(){
+      btn.disabled = false; btn.textContent = 'Request booking';
+      err.innerHTML = 'Something went wrong sending that. Please text or call <b>' + MY_PHONE + '</b> ' +
+        'or email <b>' + MY_EMAIL + '</b> and we will get you on the calendar.';
+      err.className = 'msg err on';
+    }
+
+    if(!live){ setTimeout(succeed, 400); return; } // local preview
+
+    fetch('/', {
+      method:'POST',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body: body
+    }).then(function(r){ r.ok ? succeed() : fail(); }).catch(fail);
+  });
+
+  recalc();
+})();
+</script>
+</body>
+</html>
