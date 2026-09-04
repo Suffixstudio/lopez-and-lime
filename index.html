@@ -51,7 +51,9 @@
   .rule{width:44px;height:1px;background:var(--brass);margin:0 auto 18px;opacity:.8}
   .wordmark{margin:0;line-height:0}
   .logo-img{width:min(320px,78vw);height:auto;display:block;margin:0 auto}
-  .masthead .tag{margin:20px auto 0;max-width:34ch;font-size:14.5px;color:#C9C4B6}
+  .masthead .tag-h{margin:20px auto 0;max-width:24ch;font-family:var(--serif);
+    font-size:21px;line-height:1.3;font-weight:600;color:var(--ivory)}
+  .masthead .tag{margin:9px auto 0;max-width:38ch;font-size:14.5px;color:#C9C4B6}
   .badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
   .badge{border:1px solid rgba(194,161,92,.45);color:var(--brass);border-radius:999px;
     padding:5px 13px;font-size:11px;letter-spacing:.11em;text-transform:uppercase;font-weight:600}
@@ -62,6 +64,7 @@
   .masthead.compact{padding:20px 20px 18px}
   .masthead.compact .logo-img{width:min(150px,45vw)}
   .masthead.compact .tag,
+  .masthead.compact .tag-h,
   .masthead.compact .badges{display:none}
 
   /* ---------- Founding banner ---------- */
@@ -69,14 +72,17 @@
      against the black/ivory/brass palette everywhere else on the page.
      Lime now does the same job as an accent (the rules, the emphasized
      line) instead of as a large flat surface. */
-  .founding{background:var(--ink);color:var(--ivory);text-align:center;padding:11px 18px;
-    font-size:13px;font-weight:600;letter-spacing:.03em;
-    border-top:1px solid rgba(159,191,59,.5);border-bottom:1px solid rgba(159,191,59,.5)}
-  .founding strong{font-weight:700;color:var(--lime)}
-  .founding-2{display:block;white-space:nowrap}
+  /* Deliberately quiet: brass hairlines and letterspaced small caps read
+     as a note from the business, where the earlier lime fill and bold
+     dollar figure read as a retail coupon. */
+  .founding{background:var(--ink);color:var(--ivory);text-align:center;padding:12px 18px;
+    font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+    border-top:1px solid rgba(194,161,92,.35);border-bottom:1px solid rgba(194,161,92,.35)}
+  .founding strong{font-weight:600;color:var(--lime)}
+  .founding-2{display:block;white-space:nowrap;color:#A8A396;letter-spacing:.11em;margin-top:3px}
   /* Shown by default and removed by script on load. If scripts are
      blocked (some file previews do this), it stays visible and explains
-     why the live estimate and shopping list are not calculating. */
+     why the live estimate is not calculating. */
   .nojs{background:#FBF0E4;border-bottom:1px solid #EBD5BC;color:#8A4A1E;
     padding:11px 18px;font-size:13px;text-align:center;line-height:1.45}
   .nojs b{font-weight:700}
@@ -161,9 +167,18 @@
   .pkg-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
   .pkg-name{font-family:var(--serif);font-size:21px;font-weight:600;line-height:1.15}
   .pkg-cap{font-size:12px;color:var(--muted);margin-top:3px;letter-spacing:.02em}
+  /* Same pill treatment as the masthead badges, so the three
+     differentiators read as part of the existing brand furniture rather
+     than a new component. No icons: the words are the point. */
+  .diffs{display:flex;flex-wrap:wrap;gap:6px;margin:13px 0 0}
+  .diff{border:1px solid rgba(194,161,92,.45);color:var(--brass-dk);border-radius:999px;
+    padding:4px 11px;font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;
+    font-weight:600;line-height:1.35}
   .pkg-price{text-align:right;flex:none}
+  .pkg-was{font-family:var(--serif);font-size:14px;color:#9B938D;text-decoration:line-through;
+    line-height:1;margin-bottom:3px}
   .pkg-now{font-family:var(--serif);font-size:26px;font-weight:600;color:var(--ink);line-height:1}
-  .pkg-was{font-size:12px;color:var(--muted);text-decoration:line-through;margin-top:3px}
+  .pkg-save{font-size:12px;font-weight:600;letter-spacing:.05em;margin-top:4px;color:var(--brass)}
   .pkg-incl{margin:13px 0 0;padding:0;list-style:none;display:grid;
     grid-template-columns:1fr 1fr;gap:2px 16px}
   @media(max-width:560px){.pkg-incl{grid-template-columns:1fr}}
@@ -202,54 +217,47 @@
   .addon-name{flex:1;font-size:14.5px}
   .addon-price{font-size:14px;font-weight:600;color:var(--brass-dk);white-space:nowrap}
 
-  /* ---------- Shopping list ---------- */
+  /* ---------- Shopping list (benefit panel) ---------- */
+  /* Same dark card the live list used to sit in -- the panel now
+     describes the deliverable instead of computing it. */
   .shop{background:var(--ink);color:var(--ivory);border-radius:12px;padding:22px;margin-top:6px}
-  .shop h3{font-family:var(--serif);font-size:20px;margin:0 0 4px;font-weight:600}
-  .shop .sub{font-size:13px;color:#A8A396;margin:0 0 18px}
-  .shop-empty{font-size:14px;color:#A8A396;font-style:italic}
-  .shop-grp{margin-bottom:21px}
-  .shop-grp:last-child{margin-bottom:0}
-  .shop-grp h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);
-    margin:0 0 8px;font-weight:600}
-  .shop-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;
-    border-bottom:1px solid rgba(255,255,255,.07);font-size:14.5px}
-  .shop-row:last-child{border-bottom:0}
-  .shop-row .q{color:var(--brass);font-weight:600;white-space:nowrap}
-  .shop-note{font-size:13px;color:#A8A396;line-height:1.5;margin:0}
+  .shop .sub{font-size:13.5px;color:#C9C4B6;margin:14px 0 0;line-height:1.55}
+  .shop-tag{display:inline-block;border:1px solid rgba(194,161,92,.45);color:var(--brass);
+    border-radius:999px;padding:5px 13px;font-size:10.5px;letter-spacing:.11em;
+    text-transform:uppercase;font-weight:600}
+  .shop-cats{display:grid;grid-template-columns:1fr 1fr;gap:1px;margin-top:20px;
+    background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.09);border-radius:9px;
+    overflow:hidden}
+  .shop-cat{background:var(--ink);padding:14px 15px}
+  .shop-cat h4{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--brass);
+    margin:0 0 5px;font-weight:600}
+  .shop-cat p{margin:0;font-size:12.5px;color:#A8A396;line-height:1.5}
   .shop-foot{margin-top:16px;padding-top:14px;border-top:1px solid rgba(194,161,92,.3);
     font-size:12.5px;color:#A8A396;line-height:1.5}
-  /* Quick reference table. Plain HTML so it is readable even where
-     scripts are blocked. Figures match the live calculation at each
-     bracket ceiling for a 4 hour balanced event. */
-  .ref{margin-top:22px;border:1px solid var(--line);border-radius:11px;
-    background:#fff;overflow:hidden}
-  .ref-head{padding:15px 17px 0}
-  .ref-head h4{font-family:var(--serif);font-size:18px;margin:0 0 3px;font-weight:600}
-  .ref-head p{font-size:12.5px;color:var(--muted);margin:0 0 13px}
-  .ref-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  table.ref-t{border-collapse:collapse;width:100%;min-width:340px;font-size:13.5px}
-  table.ref-t th,table.ref-t td{padding:9px 12px;text-align:right;
-    border-top:1px solid var(--line);white-space:nowrap}
-  table.ref-t th:first-child,table.ref-t td:first-child{text-align:left;font-weight:600}
-  /* Extra room on the last column (Ice) so it isn't flush against the
-     card edge, and slightly larger header labels -- both were cramped
-     enough at mobile widths to feel denser than the rest of the page. */
-  table.ref-t th:last-child,table.ref-t td:last-child{padding-right:16px}
-  table.ref-t thead th{font-size:11.5px;letter-spacing:.11em;text-transform:uppercase;
-    color:var(--brass-dk);border-top:0;padding-top:0;font-weight:600}
-  table.ref-t tbody tr:nth-child(even){background:var(--paper)}
-  .ref-foot{padding:13px 17px;background:var(--paper);border-top:1px solid var(--line);
-    font-size:12.5px;color:var(--muted);line-height:1.5}
-  .ref-rule{display:block;margin-top:11px;padding-top:10px;
-    border-top:1px solid var(--line);color:#4A473F}
-  .ref-rule b{color:var(--ink)}
-  .ref-sizes{display:block;margin-top:8px}
-  .ref-sizes > span{display:block;padding-left:13px;position:relative;margin-bottom:5px}
-  .ref-sizes > span::before{content:"";position:absolute;left:0;top:8px;
-    width:5px;height:5px;border-radius:50%;background:var(--brass)}
-  .ref-sizes b{color:var(--ink)}
-  table.ref-t thead th small{display:block;font-size:9.5px;letter-spacing:.06em;
-    color:var(--muted);font-weight:500;text-transform:none;margin-top:2px}
+  @media(max-width:430px){
+    .shop-cats{grid-template-columns:1fr}
+  }
+
+  /* ---------- Collapsible drink customization ---------- */
+  .drinks{border:1px solid var(--line);border-radius:11px;background:#fff;overflow:hidden}
+  .drinks-sum{list-style:none;cursor:pointer;padding:15px 17px;display:block;
+    position:relative;padding-right:46px}
+  .drinks-sum::-webkit-details-marker{display:none}
+  .drinks-sum-t{display:block;font-family:var(--serif);font-size:17px;font-weight:600;
+    color:var(--ink)}
+  .drinks-sum-t em{font-style:normal;color:var(--muted);font-family:var(--sans);
+    font-size:13px;font-weight:400}
+  .drinks-sum-s{display:block;font-size:12.5px;color:var(--muted);margin-top:3px;
+    line-height:1.45}
+  /* Chevron drawn from a rotated border so there is no icon asset and
+     nothing new to load. */
+  .drinks-sum::after{content:"";position:absolute;right:19px;top:22px;width:8px;height:8px;
+    border-right:2px solid var(--brass-dk);border-bottom:2px solid var(--brass-dk);
+    transform:rotate(45deg);transition:transform .18s}
+  .drinks[open] .drinks-sum::after{transform:rotate(-135deg)}
+  .drinks[open] .drinks-sum{border-bottom:1px solid var(--line)}
+  .drinks-sum:hover{background:var(--paper)}
+  .drinks-body{padding:17px}
 
   /* Timeline: turns the abstract "1 hour beyond your booked hours" into
      real clock times so the venue window is unambiguous. */
@@ -378,6 +386,15 @@
     font-size:27px;margin:0 auto 20px;font-weight:700}
   .done h2{margin-bottom:10px}
   .done p{color:var(--muted);max-width:44ch;margin:0 auto 10px;font-size:15px}
+  .next-steps{max-width:40ch;margin:18px auto 0;padding:0;list-style:none;counter-reset:ns;
+    text-align:left}
+  .next-steps li{counter-increment:ns;position:relative;padding:7px 0 7px 34px;
+    font-size:14px;color:var(--ink);line-height:1.45}
+  .next-steps li::before{content:counter(ns);position:absolute;left:0;top:6px;
+    width:22px;height:22px;border-radius:50%;border:1px solid rgba(194,161,92,.5);
+    color:var(--brass-dk);font-size:11px;font-weight:600;display:flex;
+    align-items:center;justify-content:center}
+  .next-note{margin-top:14px !important;font-size:13.5px}
   .done .recap{background:#fff;border:1px solid var(--line);border-radius:10px;
     padding:18px;margin:26px auto 0;max-width:400px;text-align:left}
   .done .recap div{display:flex;justify-content:space-between;gap:14px;
@@ -389,6 +406,7 @@
   footer{background:var(--ink);color:#8A867B;padding:34px 20px 40px;text-align:center;font-size:12.5px}
   footer .fw{font-family:var(--serif);color:var(--ivory);font-size:17px;letter-spacing:.13em;
     text-transform:uppercase;margin-bottom:9px}
+  footer .fw-amp{color:var(--lime)}
   footer a{color:var(--brass);text-decoration:none}
   /* #615E56 measured at ~2.9:1 on --ink, well under WCAG AA's 4.5:1 for
      text this size -- brightened just enough to clear it (~4.6:1) while
@@ -404,7 +422,8 @@
 <header class="masthead" id="masthead">
   <div class="rule"></div>
   <h1 class="wordmark"><img class="logo-img" src="logo.svg" alt="Lopez &amp; Lime — Mobile Bar + Events" width="790" height="667"></h1>
-  <p class="tag">A full bar that arrives at your event. You supply the alcohol, we handle everything else.</p>
+  <p class="tag-h">Professional bartending, built around your event.</p>
+  <p class="tag">You supply the alcohol. Choose from professional bartender service, a mobile bar setup, or a complete bar experience.</p>
   <div class="badges">
     <span class="badge">RBS Certified</span>
     <span class="badge">Insured</span>
@@ -413,12 +432,12 @@
 </header>
 
 <div class="founding" id="foundingBanner">
-  <strong>Save $99</strong> on all packages
-  <span class="founding-2">now through October 1st, 2026</span>
+  <strong>Summer Special</strong>
+  <span class="founding-2">Save $49 on all packages through October 1st</span>
 </div>
 
 <div class="nojs" id="nojsNotice">
-  <b>Preview mode.</b> The live estimate and your alcohol shopping list are not calculating because this viewer has JavaScript turned off. Both work normally on the published site.
+  <b>Preview mode.</b> The live estimate is not calculating because this viewer has JavaScript turned off. It works normally on the published site.
 </div>
 
 <div class="wrap">
@@ -429,7 +448,6 @@
     <input type="hidden" name="form-name" value="booking">
     <p class="hp"><label>Leave blank: <input name="bot-field"></label></p>
     <input type="hidden" name="estimate" id="fEstimate">
-    <input type="hidden" name="shopping-list" id="fShopping">
     <input type="hidden" name="addons-selected" id="fAddons">
     <input type="hidden" name="house-picks" id="fHousePicks">
     <input type="hidden" name="package-selected" id="fPackage">
@@ -593,33 +611,39 @@
     <!-- STEP 2 -->
     <section class="step">
       <div class="step-head"><span class="step-num">02</span><h2>Choose a package</h2></div>
-      <p class="step-note">Every package includes an RBS certified bartender, professional bar tools, setup and breakdown, a custom drink menu, and your personalized alcohol shopping list.</p>
+      <p class="step-note">Every package includes an RBS certified bartender, professional bar tools, setup and breakdown, a custom drink menu, and your personalized alcohol shopping list once you book.</p>
       <p class="hint" style="margin:-12px 0 18px">Prices below are built around the guest counts listed on each card. If your final headcount runs over, we will confirm any adjustment with you before the event, never as a surprise.</p>
 
       <div class="pkgs" id="pkgs">
 
         <div class="pkg">
-          <input type="radio" name="package" id="p1" value="Bartender Only ($299)" data-price="299" data-max="50" required>
+          <input type="radio" name="package" id="p1" value="Professional Bartender Service ($250)" data-price="250" data-max="50" required>
           <label for="p1">
             <div class="pkg-top">
               <div>
-                <div class="pkg-name">Bartender Only</div>
-                <div class="pkg-cap">4 hours included &middot; up to 50 guests</div>
+                <div class="pkg-name">Professional Bartender Service</div>
+                <div class="pkg-cap">4 hours &middot; Up to 50 guests &middot; Setup &amp; breakdown included</div>
               </div>
               <div class="pkg-price">
-                <div class="pkg-now">$299</div>
-                <div class="pkg-was">$398</div>
+                <div class="pkg-was">$299</div>
+                <div class="pkg-now">$250</div>
+                <div class="pkg-save entry">Summer Special</div>
               </div>
             </div>
+            <div class="diffs">
+              <span class="diff">RBS Certified &amp; Insured</span>
+              <span class="diff">Custom Drink Menu</span>
+              <span class="diff">Personalized Alcohol Shopping List</span>
+            </div>
             <ul class="pkg-incl">
-              <li>RBS certified bartender</li>
+              <li>RBS Certified &amp; Insured</li>
               <li>Professional bar tools</li>
               <li>Setup and breakdown</li>
               <li>Custom drink menu</li>
-              <li>Alcohol shopping list</li>
+              <li>Personalized alcohol shopping list after booking</li>
               <li>Pre event consultation</li>
             </ul>
-            <div class="pkg-byo"><b>You provide:</b> alcohol, bar or table, cups, ice, mixers, garnishes</div>
+            <div class="pkg-byo"><b>You provide:</b> alcohol, bar or suitable table, cups, ice, mixers and garnishes</div>
           </label>
         </div>
 
@@ -633,12 +657,13 @@
                 <div class="pkg-cap">4 hours included &middot; up to 60 guests</div>
               </div>
               <div class="pkg-price">
+                <div class="pkg-was">$474</div>
                 <div class="pkg-now">$425</div>
-                <div class="pkg-was">$524</div>
+                <div class="pkg-save">Summer Special</div>
               </div>
             </div>
             <ul class="pkg-incl">
-              <li>Everything in Bartender Only</li>
+              <li>Everything in Professional Bartender Service</li>
               <li>Our mobile bar</li>
               <li>Coolers and chilling tubs</li>
               <li>Cups, napkins, straws</li>
@@ -658,8 +683,9 @@
                 <div class="pkg-cap">4 hours included &middot; up to 60 guests</div>
               </div>
               <div class="pkg-price">
+                <div class="pkg-was">$624</div>
                 <div class="pkg-now">$575</div>
-                <div class="pkg-was">$674</div>
+                <div class="pkg-save">Summer Special</div>
               </div>
             </div>
             <ul class="pkg-incl">
@@ -683,8 +709,9 @@
                 <div class="pkg-cap">5 hours included &middot; up to 120 guests</div>
               </div>
               <div class="pkg-price">
+                <div class="pkg-was">$844</div>
                 <div class="pkg-now">$795</div>
-                <div class="pkg-was">$894</div>
+                <div class="pkg-save">Summer Special</div>
               </div>
             </div>
             <ul class="pkg-incl">
@@ -724,97 +751,97 @@
     <!-- STEP 4 -->
     <section class="step">
       <div class="step-head"><span class="step-num">04</span><h2>Your drinks</h2></div>
-      <p class="step-note">We cap signature cocktails at two so every drink comes out right and the line keeps moving.</p>
 
-      <div class="sig">
-        <div class="sig-lock" id="sigLock">Signature cocktails are included with the Signature Bar and Full House packages. You can still tell us what you have in mind below and we will quote it.</div>
+      <!-- Native details/summary so this still opens with scripts
+           blocked, and so keyboard and screen-reader behaviour comes for
+           free. Fields inside a closed disclosure still submit normally,
+           so nothing here changes what Netlify receives. -->
+      <details class="drinks" id="drinksBox">
+        <summary class="drinks-sum">
+          <span class="drinks-sum-t">Customize your drinks <em>(optional)</em></span>
+          <span class="drinks-sum-s">You can skip this now and finalize your drink menu with us later.</span>
+        </summary>
 
-        <div class="field">
-          <label class="lbl" for="sig1">Signature cocktail 1</label>
-          <input type="text" id="sig1" name="signature-1" placeholder="A name, a flavor, or a vibe. We build it.">
-        </div>
-        <div class="field" style="margin-bottom:0">
-          <label class="lbl" for="sig2">Signature cocktail 2</label>
-          <input type="text" id="sig2" name="signature-2" placeholder="Optional second drink">
-        </div>
+        <div class="drinks-body">
+          <p class="step-note" style="margin-top:0">We cap signature cocktails at two so every drink comes out right and the line keeps moving.</p>
 
-        <div class="house">
-          <h4>House menu</h4>
-          <p class="sub">Included with every package. Tap the ones you would like us to have ready. Guests can still ask for anything else on the day.</p>
-          <ul class="house-list">
-            <li class="house-pick star"><input type="checkbox" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopezlimecocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
-            <li class="house-pick"><input type="checkbox" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
-            <li class="house-pick"><input type="checkbox" value="Paloma" id="hp2"><label for="hp2">Paloma</label></li>
-            <li class="house-pick"><input type="checkbox" value="Mojito" id="hp3"><label for="hp3">Mojito</label></li>
-            <li class="house-pick"><input type="checkbox" value="Old Fashioned" id="hp4"><label for="hp4">Old Fashioned</label></li>
-            <li class="house-pick"><input type="checkbox" value="Whiskey Sour" id="hp5"><label for="hp5">Whiskey Sour</label></li>
-            <li class="house-pick"><input type="checkbox" value="Ranch Water" id="hp6"><label for="hp6">Ranch Water</label></li>
-            <li class="house-pick"><input type="checkbox" value="Moscow Mule" id="hp7"><label for="hp7">Moscow Mule</label></li>
-            <li class="house-pick"><input type="checkbox" value="Cosmopolitan" id="hp8"><label for="hp8">Cosmopolitan</label></li>
-            <li class="house-pick"><input type="checkbox" value="Daiquiri" id="hp9"><label for="hp9">Daiquiri</label></li>
-            <li class="house-pick"><input type="checkbox" value="Michelada" id="hp10"><label for="hp10">Michelada</label></li>
-            <li class="house-pick"><input type="checkbox" value="Sangria" id="hp11"><label for="hp11">Sangria</label></li>
-            <li class="house-pick"><input type="checkbox" value="Beer &amp; wine service" id="hp12"><label for="hp12">Beer &amp; wine service</label></li>
-            <li class="house-pick"><input type="checkbox" value="Zero proof options" id="hp13"><label for="hp13">Zero proof options</label></li>
-          </ul>
+          <div class="sig">
+            <div class="sig-lock" id="sigLock">Signature cocktails are included with the Signature Bar and Full House packages. You can still tell us what you have in mind below and we will quote it.</div>
+
+            <div class="field">
+              <label class="lbl" for="sig1">Signature cocktail 1</label>
+              <input type="text" id="sig1" name="signature-1" placeholder="A name, a flavor, or a vibe. We build it.">
+            </div>
+            <div class="field" style="margin-bottom:0">
+              <label class="lbl" for="sig2">Signature cocktail 2</label>
+              <input type="text" id="sig2" name="signature-2" placeholder="Optional second drink">
+            </div>
+
+            <div class="house">
+              <h4>House menu</h4>
+              <p class="sub">Included with every package. Tap the ones you would like us to have ready. Guests can still ask for anything else on the day.</p>
+              <ul class="house-list">
+                <li class="house-pick star"><input type="checkbox" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopezlimecocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
+                <li class="house-pick"><input type="checkbox" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
+                <li class="house-pick"><input type="checkbox" value="Paloma" id="hp2"><label for="hp2">Paloma</label></li>
+                <li class="house-pick"><input type="checkbox" value="Mojito" id="hp3"><label for="hp3">Mojito</label></li>
+                <li class="house-pick"><input type="checkbox" value="Old Fashioned" id="hp4"><label for="hp4">Old Fashioned</label></li>
+                <li class="house-pick"><input type="checkbox" value="Whiskey Sour" id="hp5"><label for="hp5">Whiskey Sour</label></li>
+                <li class="house-pick"><input type="checkbox" value="Ranch Water" id="hp6"><label for="hp6">Ranch Water</label></li>
+                <li class="house-pick"><input type="checkbox" value="Moscow Mule" id="hp7"><label for="hp7">Moscow Mule</label></li>
+                <li class="house-pick"><input type="checkbox" value="Cosmopolitan" id="hp8"><label for="hp8">Cosmopolitan</label></li>
+                <li class="house-pick"><input type="checkbox" value="Daiquiri" id="hp9"><label for="hp9">Daiquiri</label></li>
+                <li class="house-pick"><input type="checkbox" value="Michelada" id="hp10"><label for="hp10">Michelada</label></li>
+                <li class="house-pick"><input type="checkbox" value="Sangria" id="hp11"><label for="hp11">Sangria</label></li>
+                <li class="house-pick"><input type="checkbox" value="Beer &amp; wine service" id="hp12"><label for="hp12">Beer &amp; wine service</label></li>
+                <li class="house-pick"><input type="checkbox" value="Zero proof options" id="hp13"><label for="hp13">Zero proof options</label></li>
+              </ul>
+            </div>
+
+            <div class="house" style="margin-top:22px">
+              <h4>Your crowd</h4>
+              <p class="sub">Roughly how this group drinks. It helps us plan your bar and size your shopping list once you book.</p>
+              <div class="profile-row" id="profileRow">
+                <div class="chip"><input type="radio" name="crowd" id="c1" value="Balanced" checked><label for="c1">Balanced</label></div>
+                <div class="chip"><input type="radio" name="crowd" id="c2" value="Cocktail crowd"><label for="c2">Cocktails</label></div>
+                <div class="chip"><input type="radio" name="crowd" id="c3" value="Beer and wine crowd"><label for="c3">Beer &amp; wine</label></div>
+                <div class="chip"><input type="radio" name="crowd" id="c4" value="Light drinkers"><label for="c4">Light</label></div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </details>
     </section>
 
     <!-- STEP 5 -->
     <section class="step">
-      <div class="step-head"><span class="step-num">05</span><h2>Your shopping list</h2></div>
-      <p class="step-note">California law requires that you buy and own the alcohol. Here is exactly what to get, calculated from your guest count and hours.</p>
+      <div class="step-head"><span class="step-num">05</span><h2>Your Personalized Shopping List</h2></div>
+      <p class="step-note">California law requires that you buy and own the alcohol &mdash; so we tell you exactly what to get.</p>
 
-      <div class="profile-row" id="profileRow">
-        <div class="chip"><input type="radio" name="crowd" id="c1" value="Balanced" checked><label for="c1">Balanced</label></div>
-        <div class="chip"><input type="radio" name="crowd" id="c2" value="Cocktail crowd"><label for="c2">Cocktails</label></div>
-        <div class="chip"><input type="radio" name="crowd" id="c3" value="Beer and wine crowd"><label for="c3">Beer &amp; wine</label></div>
-        <div class="chip"><input type="radio" name="crowd" id="c4" value="Light drinkers"><label for="c4">Light</label></div>
-      </div>
-      <p class="hint">Balanced is about half liquor, with beer and wine splitting the rest. Cocktails is almost all liquor. Beer &amp; wine keeps a little liquor on hand but leans on beer and wine. Light orders less of everything, for a lighter-drinking crowd.</p>
+      <div class="shop">
+        <span class="shop-tag">Included with your booking</span>
+        <p class="sub">No guessing how much to buy. Once your booking retainer is received, we'll create a customized alcohol and supply shopping list based on your guest count, service time, and drink preferences.</p>
 
-      <div class="shop" id="shop">
-        <h3>Alcohol shopping list</h3>
-        <p class="sub">Quantities update automatically once you add your guest count above.</p>
-        <p class="shop-empty" id="shopEmpty">Enter your guest count to see your list.</p>
-        <div id="shopBody"></div>
-      </div>
+        <div class="shop-cats">
+          <div class="shop-cat">
+            <h4>Spirits</h4>
+            <p>Chosen around the drinks you want served.</p>
+          </div>
+          <div class="shop-cat">
+            <h4>Beer &amp; wine</h4>
+            <p>Sized to your guest count and service time.</p>
+          </div>
+          <div class="shop-cat">
+            <h4>Mixers &amp; garnishes</h4>
+            <p>Everything each drink on your menu actually needs.</p>
+          </div>
+          <div class="shop-cat">
+            <h4>Ice &amp; supplies</h4>
+            <p>Whatever your package does not already include.</p>
+          </div>
+        </div>
 
-      <div class="ref">
-        <div class="ref-head">
-          <h4>Quick reference</h4>
-          <p>Rough amounts for a 4 hour event with a balanced crowd. Round up, never down. Ice is only on you for Bartender Only and The Mobile Bar &mdash; Signature Bar and Full House bring it.</p>
-        </div>
-        <div class="ref-scroll">
-          <table class="ref-t">
-            <thead>
-              <tr>
-                <th scope="col">Guests</th>
-                <th scope="col">Liquor<br><small>750ml</small></th>
-                <th scope="col">Beer<br><small>12oz</small></th>
-                <th scope="col">Wine<br><small>750ml</small></th>
-                <th scope="col">Ice</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr><td>Up to 25</td><td>3</td><td>29</td><td>4</td><td>38 lb</td></tr>
-              <tr><td>26 to 50</td><td>6</td><td>57</td><td>8</td><td>75 lb</td></tr>
-              <tr><td>51 to 75</td><td>9</td><td>85</td><td>12</td><td>113 lb</td></tr>
-              <tr><td>76 to 100</td><td>12</td><td>113</td><td>15</td><td>150 lb</td></tr>
-              <tr><td>101 to 120</td><td>15</td><td>135</td><td>18</td><td>180 lb</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="ref-foot">
-          <b>Bottle sizes, so you buy the right thing anywhere:</b>
-          <span class="ref-sizes">
-            <span><b>750ml</b> is the standard bottle, sometimes called a fifth. This is what every count above means.</span>
-            <span><b>1.75L</b> is a handle, the big one with the loop on the neck. Common at Costco and warehouse stores. <b>One handle replaces two 750ml bottles.</b></span>
-            <span><b>375ml</b> is a half bottle. Half of a 750ml. Fine for a small event, but usually worse value.</span>
-          </span>
-          <span class="ref-rule">Rule of thumb: <b>one 750ml bottle of liquor per 8 guests</b>, <b>one 750ml bottle of wine per 7 guests</b>, and <b>about one beer per guest</b>.</span>
-        </div>
+        <div class="shop-foot">We'll calculate quantities specifically for your event so you can shop confidently without overbuying or running short. Prepared after your booking retainer is received.</div>
       </div>
     </section>
 
@@ -868,14 +895,21 @@
   <div class="done" id="done">
     <div class="mark">&#10003;</div>
     <h2>Request received</h2>
-    <p>Thank you. We have your details, including your shopping list, and will reach out within 24 hours to confirm the date and send your quote.</p>
+    <p>Thank you. We will reach out within 24 hours with your quote.</p>
+    <ol class="next-steps">
+      <li>We review your event details</li>
+      <li>We confirm your booking information</li>
+      <li>Your booking retainer reserves your date</li>
+      <li>We prepare your personalized shopping list and finalize your bar plan</li>
+    </ol>
+    <p class="next-note">Once your booking retainer is received and your date is confirmed, we'll prepare your personalized shopping list.</p>
     <div class="recap" id="recap"></div>
   </div>
 
 </div>
 
 <footer>
-  <div class="fw">Lopez &amp; Lime</div>
+  <div class="fw">Lopez <span class="fw-amp">&amp;</span> Lime</div>
   <div>Mobile Bar + Events &middot; Jurupa Valley, California</div>
   <div style="margin-top:10px">RBS Certified &middot; Insured &middot; Serving San Dimas to Temecula</div>
   <div style="margin-top:10px">Questions? <a href="tel:+17148732402">Call</a> or <a href="sms:+17148732402">text</a> (714) 873-2402</div>
@@ -919,7 +953,6 @@
 
   var guests = $('guests'), hours = $('hours'), edate = $('edate'), city = $('city'), notes = $('notes'), phone = $('phone');
   var estAmt = $('estAmt'), estSub = $('estSub'), estbar = $('estbar');
-  var shopBody = $('shopBody'), shopEmpty = $('shopEmpty');
 
   /* Cities farther from Jurupa Valley. Flat travel fee, not per
      mile, to keep it simple on the form. Edit the number or the
@@ -1130,7 +1163,7 @@
     }
     var p = selectedPkg();
     $('fPackage').value = p ? p.value : '';
-    // mobile bar add-on only applies to Bartender Only
+    // mobile bar add-on only applies to Professional Bartender Service
     var mb = form.querySelector('input[data-only=p1]');
     var row = mb.closest('.addon');
     if(p && p.id !== 'p1'){
@@ -1153,7 +1186,7 @@
     $('sigLock').className = (p && p.dataset.sig) ? 'sig-lock' : 'sig-lock on';
     /* Hours baseline. Full House includes 5 hours, everything else 4.
        The option VALUE must be the real number of hours, not just the
-       label, or the surcharge and the shopping list drift out of step
+       label, or the surcharge drifts out of step
        with what the customer was shown. Keep the actual hour COUNT
        across a package switch, not the dropdown position -- keeping
        position meant 7 hours on Signature Bar silently became 8 hours
@@ -1290,225 +1323,25 @@
     $('fHousePicks').value = names.join(', ');
   }
 
-  /* ---- shopping list ----
-
-     Not every guest drinks. There are always designated drivers,
-     non-drinkers, and people nursing one beer all night. Planning for
-     100% sends clients to buy alcohol they will only return.
-     Lower DRINKING_SHARE to recommend less, raise it toward 1 to
-     recommend more. The quick-reference table in the HTML is built on
-     this same number, so change both together if you edit it. */
-  var DRINKING_SHARE = 0.75;
-
-  var PROFILES = {
-    'Balanced':          { spirit:.50, beer:.30, wine:.20, rate:1.00 },
-    'Cocktail crowd':    { spirit:.75, beer:.15, wine:.10, rate:1.00 },
-    'Beer and wine crowd':{ spirit:.15, beer:.55, wine:.30, rate:1.00 },
-    'Light drinkers':    { spirit:.45, beer:.30, wine:.25, rate:0.65 }
-  };
-
-  /* Some house-menu picks need something beyond the base spirits, beer,
-     wine, and standard mixers already on the list above. This is a
-     heads-up, not a quantity -- how much depends on your own recipe and
-     how many guests actually order that specific drink, which the
-     crowd-profile math above has no way to know. Picks not listed here
-     (Margarita, Cosmopolitan, Beer & wine service) are already covered
-     by the base list. The Lopez & Lime needs reposado tequila
-     specifically -- the base list only ever suggests blanco -- which is
-     also exactly why it is not pre-checked: an event with no tequila
-     planned at all should not quietly promise a tequila drink. */
-  var EXTRA_ITEMS = {
-    'The Lopez & Lime':   ['Reposado tequila'],
-    'Paloma':             ['Grapefruit soda (Jarritos or Squirt)'],
-    'Mojito':             ['Mint'],
-    'Old Fashioned':      ['Bitters', 'Simple syrup', 'Orange peel or cocktail cherries'],
-    'Whiskey Sour':       ['Simple syrup'],
-    'Ranch Water':        ['Topo Chico or sparkling mineral water'],
-    'Moscow Mule':        ['Ginger beer'],
-    'Daiquiri':           ['Simple syrup'],
-    'Michelada':          ['Clamato or tomato juice', 'Hot sauce', 'Tajín or chili-lime seasoning'],
-    'Sangria':            ['Brandy', 'Orange liqueur', 'Fresh fruit for the pitcher'],
-    'Zero proof options': ['Extra sparkling water, juice, or NA spirits for mocktails']
-  };
-
-  function shopping(){
-    var g = parseInt(guests.value,10) || 0;
-    var h = parseInt(hours.value,10) || 4;
-    if(!g){
-      shopEmpty.style.display = 'block';
-      shopBody.innerHTML = '';
-      $('fShopping').value = '';
-      return;
-    }
-    shopEmpty.style.display = 'none';
-
-    var crowdEl = form.querySelector('input[name=crowd]:checked');
-    var crowd = crowdEl ? crowdEl.value : 'Balanced';
-    var pf = PROFILES[crowd];
-
-    // 2 drinks in hour one, 1 per hour after, across the guests who drink
-    var drinks = Math.round(g * (2 + (h - 1)) * pf.rate * DRINKING_SHARE);
-
-    var spiritDrinks = drinks * pf.spirit;
-    var beerDrinks   = drinks * pf.beer;
-    var wineDrinks   = drinks * pf.wine;
-
-    // 750ml spirits = ~16 pours at 1.5oz; 750ml wine = 5 glasses
-    var spiritBottles = Math.ceil(spiritDrinks / 16);
-    var wineBottles   = Math.ceil(wineDrinks / 5);
-    var beerCans      = Math.ceil(beerDrinks);
-
-    // split spirits: tequila and vodka lead, then whiskey and rum
-    function split(total, w){ return Math.max(w > 0 ? 1 : 0, Math.round(total * w)); }
-    var tequila = split(spiritBottles,.34), vodka = split(spiritBottles,.28);
-    var whiskey = split(spiritBottles,.22), rum = split(spiritBottles,.16);
-    /* Rounding each share on its own can lose or gain a bottle against
-       the total. Settle the difference on tequila, the largest share,
-       so the parts always add up to spiritBottles. */
-    var drift = spiritBottles - (tequila + vodka + whiskey + rum);
-    tequila = Math.max(1, tequila + drift);
-    if(spiritBottles < 4){ // small events: keep it simple
-      if(spiritBottles <= 1){
-        /* One bottle total means one bottle, not one of each. Tequila,
-           since the signature drink is built on it. */
-        tequila = spiritBottles; vodka = 0;
-      } else {
-        tequila = Math.ceil(spiritBottles*.5); vodka = spiritBottles - tequila;
-      }
-      whiskey = 0; rum = 0;
-    }
-
-    var p = selectedPkg();
-    var weBring = p && (p.id === 'p3' || p.id === 'p4');
-    var weBringCups = p && p.id !== 'p1';
-
-    var html = '';
-    var plain = [];
-
-    function group(title, rows){
-      if(!rows.length) return;
-      html += '<div class="shop-grp"><h4>' + title + '</h4>';
-      plain.push(title.toUpperCase());
-      for(var i=0;i<rows.length;i++){
-        html += '<div class="shop-row"><span>' + rows[i][0] + '</span><span class="q">' + rows[i][1] + '</span></div>';
-        plain.push('  ' + rows[i][0] + ': ' + rows[i][1]);
-      }
-      html += '</div>';
-    }
-
-    /* Past 3 bottles of one spirit, a 1.75L handle is fewer trips and
-       cheaper per ounce. One handle replaces roughly two 750s. */
-    function bottleQty(n){
-      if(n >= 3){
-        var handles = Math.floor(n / 2);
-        var rest = n - (handles * 2);
-        return handles + ' × 1.75L handle' + (handles > 1 ? 's' : '') +
-               (rest ? ' + ' + rest + ' × 750ml' : '');
-      }
-      return n + ' × 750ml';
-    }
-
-    var sp = [];
-    if(tequila) sp.push(['Blanco tequila', bottleQty(tequila)]);
-    if(vodka)   sp.push(['Vodka', bottleQty(vodka)]);
-    if(whiskey) sp.push(['Whiskey or bourbon', bottleQty(whiskey)]);
-    if(rum)     sp.push(['White rum', bottleQty(rum)]);
-    if(spiritBottles >= 3) sp.push(['Orange liqueur (Cointreau)', '1 × 750ml']);
-    group('Spirits', sp);
-
-    group('Beer & wine', [
-      ['Beer', beerCans + ' cans or bottles'],
-      ['Wine', wineBottles + ' × 750ml']
-    ]);
-
-    var mimosaBox = form.querySelector('input[data-key=mimosa]');
-    if(mimosaBox && mimosaBox.checked){
-      group('For the mimosa bar', [
-        ['Sparkling wine (brut or prosecco)', Math.ceil(g/6) + ' × 750ml']
-      ]);
-    }
-
-    var mix = [];
-    if(weBring){
-      mix.push(['Mixers, juices, syrups', 'We bring these']);
-      mix.push(['Fresh garnishes', 'We bring these']);
-    } else {
-      mix.push(['Club soda / tonic', Math.ceil(g/8) + ' × 2L']);
-      mix.push(['Cola and lemon-lime', Math.ceil(g/6) + ' × 2L']);
-      mix.push(['Cranberry juice', Math.ceil(g/14) + ' × 64oz']);
-      mix.push(['Orange juice', Math.ceil(g/14) + ' × 64oz']);
-      mix.push(['Fresh limes', Math.ceil(g/3) + ' limes']);
-      mix.push(['Fresh lemons', Math.ceil(g/6) + ' lemons']);
-    }
-    group('Mixers & garnish', mix);
-
-    var sup = [];
-    if(weBring){ sup.push(['Ice', 'We bring this']); }
-    else { sup.push(['Ice', Math.ceil(g * 1.5) + ' lbs']); }
-    if(weBringCups){ sup.push(['Cups, napkins, straws', 'We bring these']); }
-    else {
-      sup.push(['Cups', (g * 3) + ' (16oz)']);
-      sup.push(['Cocktail napkins', (g * 3) + '']);
-      sup.push(['Straws', (g * 2) + '']);
-    }
-    if(weBring){ sup.push(['Bottled water', 'We bring this']); }
-    else { sup.push(['Bottled water', g + ' bottles']); }
-    group('Ice & supplies', sup);
-
-    /* House-menu picks that need something the base list above does not
-       cover. Only shown when the customer is buying their own mixers
-       (Bartender Only / The Mobile Bar) -- on the packages where we
-       already bring mixers and garnish, we bring these too, covered by
-       that "We bring these" note above. No quantities: how much depends
-       on the real recipe and how many guests actually order it. */
-    if(!weBring){
-      var picked = form.querySelectorAll('.house-list input:checked');
-      var extraNames = [], extraSet = {};
-      for(var pi=0; pi<picked.length; pi++){
-        var items = EXTRA_ITEMS[picked[pi].value];
-        if(!items) continue;
-        extraNames.push(picked[pi].value);
-        for(var ei=0; ei<items.length; ei++){ extraSet[items[ei]] = true; }
-      }
-      var extraList = Object.keys(extraSet);
-      if(extraList.length){
-        html += '<div class="shop-grp"><h4>For your house menu picks</h4>' +
-          '<p class="shop-note">You picked ' + extraNames.join(', ') + '. Grab these too: ' +
-          extraList.join(', ') + '. A little of each goes a long way — guests trying a ' +
-          'specialty drink will not go through as much as the core bar.</p></div>';
-        plain.push('HOUSE MENU EXTRAS (for ' + extraNames.join(', ') + '): ' + extraList.join(', '));
-      }
-    }
-
-    html += '<div class="shop-foot">Based on ' + g + ' guests over ' + h + ' hours (' + crowd.toLowerCase() +
-      '), assuming about ' + Math.round(DRINKING_SHARE * 100) + '% of them drink, which allows for designated drivers and non-drinkers. ' +
-      'Planning math: 2 drinks in the first hour, then 1 per hour. ' +
-      'Buy from one store with a return policy on unopened bottles, and you can take back whatever you do not use.</div>';
-
-    shopBody.innerHTML = html;
-    $('fShopping').value = plain.join('\n');
-  }
-
   /* ---- recalc ---- */
   function recalc(){
     paintPkgs(); paintAddons(); staffHint();
     clampStartTime();
-    checkDate(); checkCity(); timeline(); estimate(); shopping(); housePicks();
+    checkDate(); checkCity(); timeline(); estimate(); housePicks();
   }
 
   form.addEventListener('change', recalc);
   form.addEventListener('input', function(e){
-    if(e.target === guests){ staffHint(); estimate(); shopping(); }
+    if(e.target === guests){ staffHint(); estimate(); }
   });
 
   /* Safety net. Some preview and embedded environments don't
      reliably bubble a native change event from a styled radio or
      checkbox row up to the form listener above. This re-runs the
      totals after any interaction anywhere on the page, so the
-     estimate and shopping list never go stale no matter where
-     this file is opened. */
+     estimate never goes stale no matter where this file is opened. */
   /* Scoped to the form rather than the whole document. Listening on
-     document meant every click anywhere rebuilt the shopping list. */
+     document meant every click anywhere re-ran the totals. */
   form.addEventListener('click', function(){ setTimeout(recalc, 0); });
 
   /* ---- submit ---- */
@@ -1519,7 +1352,16 @@
 
     if(!form.checkValidity()){
       var first = form.querySelector(':invalid');
-      if(first){ first.focus(); first.scrollIntoView({behavior:'smooth', block:'center'}); }
+      /* Nothing inside the collapsible drink section is required today,
+         but a required field added there later would be unfocusable and
+         invisible while the section is closed -- the customer would see
+         "fields still need filling in" with nothing on screen to fill.
+         Opening the section first keeps that failure impossible. */
+      if(first){
+        var box = first.closest('details');
+        if(box && !box.open) box.open = true;
+        first.focus(); first.scrollIntoView({behavior:'smooth', block:'center'});
+      }
       err.textContent = 'A few required fields still need filling in.';
       err.className = 'msg err on';
       return;
