@@ -491,6 +491,7 @@
           <input type="date" id="edate" name="event-date" required>
           <p class="hint">Currently booking Friday evenings, Saturdays, and Sundays.</p>
           <div class="warn" id="dateWarn"></div>
+          <div class="warn" id="leadWarn"></div>
         </div>
         <div class="field">
           <label class="lbl" for="stime">Bar opens at <span class="req">*</span></label>
@@ -617,12 +618,12 @@
       <div class="pkgs" id="pkgs">
 
         <div class="pkg">
-          <input type="radio" name="package" id="p1" value="Professional Bartender Service ($250)" data-price="250" data-max="50" required>
+          <input type="radio" name="package" id="p1" value="Professional Bartender Service ($250)" data-price="250" data-max="50" data-lead="2" required>
           <label for="p1">
             <div class="pkg-top">
               <div>
                 <div class="pkg-name">Professional Bartender Service</div>
-                <div class="pkg-cap">4 hours &middot; Up to 50 guests &middot; Setup &amp; breakdown included</div>
+                <div class="pkg-cap">4 hours &middot; Up to 50 guests &middot; Setup &amp; breakdown included &middot; Requires 2 days' notice</div>
               </div>
               <div class="pkg-price">
                 <div class="pkg-was">$299</div>
@@ -648,13 +649,13 @@
         </div>
 
         <div class="pkg has-badge">
-          <input type="radio" name="package" id="p2" value="The Mobile Bar ($425)" data-price="425" data-max="60">
+          <input type="radio" name="package" id="p2" value="The Mobile Bar ($425)" data-price="425" data-max="60" data-lead="3">
           <span class="popular">Recommended</span>
           <label for="p2">
             <div class="pkg-top">
               <div>
                 <div class="pkg-name">The Mobile Bar</div>
-                <div class="pkg-cap">4 hours included &middot; up to 60 guests</div>
+                <div class="pkg-cap">4 hours included &middot; up to 60 guests &middot; Requires 3 days' notice</div>
               </div>
               <div class="pkg-price">
                 <div class="pkg-was">$474</div>
@@ -675,12 +676,12 @@
         </div>
 
         <div class="pkg">
-          <input type="radio" name="package" id="p3" value="Signature Bar ($575)" data-price="575" data-max="60" data-sig="2">
+          <input type="radio" name="package" id="p3" value="Signature Bar ($575)" data-price="575" data-max="60" data-sig="2" data-lead="3">
           <label for="p3">
             <div class="pkg-top">
               <div>
                 <div class="pkg-name">Signature Bar</div>
-                <div class="pkg-cap">4 hours included &middot; up to 60 guests</div>
+                <div class="pkg-cap">4 hours included &middot; up to 60 guests &middot; Requires 3 days' notice</div>
               </div>
               <div class="pkg-price">
                 <div class="pkg-was">$624</div>
@@ -701,12 +702,12 @@
         </div>
 
         <div class="pkg">
-          <input type="radio" name="package" id="p4" value="Full House ($795)" data-price="795" data-max="120" data-sig="2" data-hours="5">
+          <input type="radio" name="package" id="p4" value="Full House ($795)" data-price="795" data-max="120" data-sig="2" data-hours="5" data-lead="3">
           <label for="p4">
             <div class="pkg-top">
               <div>
                 <div class="pkg-name">Full House</div>
-                <div class="pkg-cap">5 hours included &middot; up to 120 guests</div>
+                <div class="pkg-cap">5 hours included &middot; up to 120 guests &middot; Requires 3 days' notice</div>
               </div>
               <div class="pkg-price">
                 <div class="pkg-was">$844</div>
@@ -969,6 +970,11 @@
     var m = d.getMonth() + 1, day = d.getDate();
     return d.getFullYear() + '-' + (m < 10 ? '0' : '') + m + '-' + (day < 10 ? '0' : '') + day;
   }
+  function addDays(d, n){
+    var r = new Date(d);
+    r.setDate(r.getDate() + n);
+    return r;
+  }
   /* No default date. This used to auto-fill 21 days out, which meant a
      customer could tab straight through and submit a real request for a
      date they never actually chose. min still blocks the past. */
@@ -1023,6 +1029,24 @@
         '. We normally book Friday evenings, Saturdays and Sundays, but send it anyway and we will see what we can do.';
       w.className = 'warn on';
     }
+  }
+
+  /* Same idea as checkDate() above, but for the package-driven lead time
+     rather than the day of the week. edate.min is already kept in sync
+     with the selected package by paintPkgs(), so this only has to check
+     against it -- one source of truth for what counts as "too soon". */
+  function checkLeadTime(){
+    var w = $('leadWarn');
+    var p = selectedPkg();
+    if(!w || !p || !edate.value || !edate.min || edate.value >= edate.min){
+      if(w) w.className = 'warn';
+      return;
+    }
+    var name = p.value.replace(/\s*\(\$\d+\)/, '');
+    var lead = parseInt(p.dataset.lead, 10) || 0;
+    w.textContent = name + ' needs at least ' + lead + ' day' + (lead === 1 ? '' : 's') +
+      '’ notice through this form. Need something sooner? Call or text ' + MY_PHONE + ' and we will see what we can do.';
+    w.className = 'warn on';
   }
 
   /* ---- timeline ----
@@ -1163,6 +1187,13 @@
     }
     var p = selectedPkg();
     $('fPackage').value = p ? p.value : '';
+    // Minimum lead time (days) moves with the selected package -- shorter
+    // for bartender-only bookings, longer for anything needing the mobile
+    // bar unit or a second bartender, since those need real time to line
+    // up. No package selected yet just falls back to "today", same as
+    // before this existed.
+    var lead = p ? (parseInt(p.dataset.lead, 10) || 0) : 0;
+    edate.min = ymd(addDays(new Date(), lead));
     // mobile bar add-on only applies to Professional Bartender Service
     var mb = form.querySelector('input[data-only=p1]');
     var row = mb.closest('.addon');
@@ -1327,7 +1358,7 @@
   function recalc(){
     paintPkgs(); paintAddons(); staffHint();
     clampStartTime();
-    checkDate(); checkCity(); timeline(); estimate(); housePicks();
+    checkDate(); checkLeadTime(); checkCity(); timeline(); estimate(); housePicks();
   }
 
   form.addEventListener('change', recalc);
@@ -1362,7 +1393,15 @@
         if(box && !box.open) box.open = true;
         first.focus(); first.scrollIntoView({behavior:'smooth', block:'center'});
       }
-      err.textContent = 'A few required fields still need filling in.';
+      // A date that fails validation because it is too soon for the
+      // chosen package is not really an empty-field problem -- say so
+      // specifically instead of the generic message below, which reads
+      // like the date box was left blank.
+      if(first === edate && edate.value){
+        err.textContent = 'That date does not leave enough notice for the package you picked. See the note above the date field.';
+      } else {
+        err.textContent = 'A few required fields still need filling in.';
+      }
       err.className = 'msg err on';
       return;
     }
