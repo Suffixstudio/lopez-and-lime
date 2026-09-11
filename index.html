@@ -308,9 +308,6 @@
     border-radius:12px;box-shadow:var(--shadow)}
 
   .sig{background:#fff;border:1px solid var(--line);border-radius:11px;padding:18px}
-  .sig-lock{background:#FBF0E4;border:1px solid #EBD5BC;border-radius:8px;padding:12px 14px;
-    font-size:13.5px;color:#8A4A1E;margin-bottom:16px;display:none}
-  .sig-lock.on{display:block}
   .house{margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
   .house h4{font-family:var(--serif);font-size:17px;margin:0 0 3px;font-weight:600}
   .house p.sub{font-size:12.5px;color:var(--muted);margin:0 0 12px}
@@ -331,6 +328,11 @@
     transition:color .15s,background-color .15s,border-color .15s,box-shadow .15s}
   .house-list li.house-pick input:checked + label{border-color:var(--lime);
     background:#F0F7E0;color:#4A6415;box-shadow:0 0 0 1px var(--lime)}
+  /* Once 4 picks are spoken for, whatever's left unchecked dims out
+     rather than just silently refusing the click -- the greyed pill
+     explains itself instead of looking broken. */
+  .house-list li.house-pick.capped label{opacity:.45;cursor:not-allowed}
+  #hpOther:disabled{opacity:.5;cursor:not-allowed}
   /* The signature drink gets its own brass color instead of the green
      everyone else uses, so it still reads as featured -- but it is a
      real checkbox like the rest, on by choice, not always-on. Whether
@@ -669,7 +671,7 @@
               <li>Coolers and chilling tubs</li>
               <li>Cups, napkins, straws</li>
               <li>Basic garnishes</li>
-              <li>Displayed cocktail menu</li>
+              <li>Custom cocktail menu</li>
             </ul>
             <div class="pkg-byo"><b>You provide:</b> alcohol, ice, mixers</div>
           </label>
@@ -691,7 +693,7 @@
             </div>
             <ul class="pkg-incl">
               <li>Everything in The Mobile Bar</li>
-              <li>2 signature cocktails</li>
+              <li>4 signature cocktails</li>
               <li>All mixers and juices</li>
               <li>House made syrups</li>
               <li>Fresh garnishes</li>
@@ -718,7 +720,7 @@
             <ul class="pkg-incl">
               <li>Everything in Signature Bar</li>
               <li>2 bartenders</li>
-              <li>2 signature cocktails</li>
+              <li>4 signature cocktails</li>
               <li>Extra hour of service</li>
               <li>Fresh garnish program</li>
               <li>Full event bar planning</li>
@@ -740,7 +742,6 @@
         <label class="addon"><input type="checkbox" value="Mocktail / zero-proof station" data-price="150"><span class="addon-name">Zero proof mocktail station</span><span class="addon-price">+$150</span></label>
         <label class="addon"><input type="checkbox" value="Infused water station" data-price="0" data-per="1.5"><span class="addon-name">Infused water station (self-serve, off the bar line)</span><span class="addon-price">+$1.50/guest</span></label>
         <label class="addon"><input type="checkbox" value="Mimosa bar add-on" data-price="0" data-per="4.5" data-key="mimosa"><span class="addon-name">Mimosa bar, unlimited (you supply the bubbly)</span><span class="addon-price">+$4.50/guest</span></label>
-        <label class="addon"><input type="checkbox" value="Custom cocktail design" data-price="60"><span class="addon-name">Custom cocktail design session</span><span class="addon-price">+$60</span></label>
       </div>
     </section>
 
@@ -764,23 +765,12 @@
         </summary>
 
         <div class="drinks-body">
-          <p class="step-note" style="margin-top:0">We cap signature cocktails at two so every drink comes out right and the line keeps moving.</p>
+          <p class="step-note" style="margin-top:0">Pick up to 4 from the house menu below so every drink comes out right and the line keeps moving.</p>
 
           <div class="sig">
-            <div class="sig-lock" id="sigLock">Signature cocktails are included with the Signature Bar and Full House packages. You can still tell us what you have in mind below and we will quote it.</div>
-
-            <div class="field">
-              <label class="lbl" for="sig1">Signature cocktail 1</label>
-              <input type="text" id="sig1" name="signature-1" placeholder="A name, a flavor, or a vibe. We build it.">
-            </div>
-            <div class="field" style="margin-bottom:0">
-              <label class="lbl" for="sig2">Signature cocktail 2</label>
-              <input type="text" id="sig2" name="signature-2" placeholder="Optional second drink">
-            </div>
-
             <div class="house">
               <h4>House menu</h4>
-              <p class="sub">Included with every package. Tap the ones you would like us to have ready. Guests can still ask for anything else on the day.</p>
+              <p class="sub">Included with every package. Pick up to 4 you would like us to have ready. Guests can still ask for anything else on the day.</p>
               <ul class="house-list">
                 <li class="house-pick star"><input type="checkbox" value="The Lopez &amp; Lime" id="hp0"><label for="hp0"><img src="lopezlimecocktail.jpg" alt="" class="hp-photo">The Lopez &amp; Lime</label></li>
                 <li class="house-pick"><input type="checkbox" value="Margarita" id="hp1"><label for="hp1">Margarita</label></li>
@@ -794,9 +784,20 @@
                 <li class="house-pick"><input type="checkbox" value="Daiquiri" id="hp9"><label for="hp9">Daiquiri</label></li>
                 <li class="house-pick"><input type="checkbox" value="Michelada" id="hp10"><label for="hp10">Michelada</label></li>
                 <li class="house-pick"><input type="checkbox" value="Sangria" id="hp11"><label for="hp11">Sangria</label></li>
+                <li class="house-pick"><input type="checkbox" value="Aperol Spritz" id="hp14"><label for="hp14">Aperol Spritz</label></li>
+                <li class="house-pick"><input type="checkbox" value="Espresso Martini" id="hp15"><label for="hp15">Espresso Martini</label></li>
+                <li class="house-pick"><input type="checkbox" value="Gin &amp; Tonic" id="hp16"><label for="hp16">Gin &amp; Tonic</label></li>
+                <li class="house-pick"><input type="checkbox" value="Mai Tai" id="hp17"><label for="hp17">Mai Tai</label></li>
+                <li class="house-pick"><input type="checkbox" value="Tequila Sunrise" id="hp18"><label for="hp18">Tequila Sunrise</label></li>
+                <li class="house-pick"><input type="checkbox" value="French 75" id="hp19"><label for="hp19">French 75</label></li>
                 <li class="house-pick"><input type="checkbox" value="Beer &amp; wine service" id="hp12"><label for="hp12">Beer &amp; wine service</label></li>
                 <li class="house-pick"><input type="checkbox" value="Zero proof options" id="hp13"><label for="hp13">Zero proof options</label></li>
               </ul>
+              <div class="field" style="margin-top:14px">
+                <label class="lbl" for="hpOther">Don't see a drink you like? Add one here (counts as one of your four)</label>
+                <input type="text" id="hpOther" name="other-drink" maxlength="16" placeholder="One drink name">
+              </div>
+              <p class="hint" id="pickNote"></p>
             </div>
 
             <div class="house" style="margin-top:22px">
@@ -952,7 +953,7 @@
   })();
   var form = $('bk');
 
-  var guests = $('guests'), hours = $('hours'), edate = $('edate'), city = $('city'), notes = $('notes'), phone = $('phone');
+  var guests = $('guests'), hours = $('hours'), edate = $('edate'), city = $('city'), notes = $('notes'), phone = $('phone'), hpOther = $('hpOther');
   var estAmt = $('estAmt'), estSub = $('estSub'), estbar = $('estbar');
 
   /* Cities farther from Jurupa Valley. Flat travel fee, not per
@@ -1213,8 +1214,6 @@
       row.querySelector('.addon-name').textContent = 'Add the mobile bar';
       row.querySelector('.addon-price').textContent = '+$140';
     }
-    // signature drinks availability
-    $('sigLock').className = (p && p.dataset.sig) ? 'sig-lock' : 'sig-lock on';
     /* Hours baseline. Full House includes 5 hours, everything else 4.
        The option VALUE must be the real number of hours, not just the
        label, or the surcharge drifts out of step
@@ -1347,11 +1346,35 @@
     $('fEstimate').value = '$' + total + ' (' + parts.join(', ') + ')';
   }
 
+  var PICK_CAP = 4;
   function housePicks(){
-    var boxes = form.querySelectorAll('.house-list input:checked');
+    var all = form.querySelectorAll('.house-list input[type=checkbox]');
+    var checked = form.querySelectorAll('.house-list input[type=checkbox]:checked');
     var names = [];
-    for(var i=0;i<boxes.length;i++) names.push(boxes[i].value);
+    for(var i=0;i<checked.length;i++) names.push(checked[i].value);
     $('fHousePicks').value = names.join(', ');
+
+    // The typed-in drink counts toward the same cap as a checked box, so
+    // someone can't pick 4 from the list and still slip in a fifth by
+    // typing one -- one combined total, four items either way.
+    var otherHasText = !!(hpOther && hpOther.value.trim());
+    var count = checked.length + (otherHasText ? 1 : 0);
+    var full = count >= PICK_CAP;
+
+    for(var j=0;j<all.length;j++){
+      all[j].disabled = full && !all[j].checked;
+      var li = all[j].closest('li');
+      if(li) li.classList.toggle('capped', all[j].disabled);
+    }
+    if(hpOther){ hpOther.disabled = full && !otherHasText; }
+
+    var note = $('pickNote');
+    if(note){
+      var left = PICK_CAP - count;
+      note.textContent = left <= 0
+        ? 'That is 4. Uncheck one to swap it for another.'
+        : left + ' more pick' + (left === 1 ? '' : 's') + ' available.';
+    }
   }
 
   /* ---- recalc ---- */
@@ -1364,6 +1387,7 @@
   form.addEventListener('change', recalc);
   form.addEventListener('input', function(e){
     if(e.target === guests){ staffHint(); estimate(); }
+    if(e.target === hpOther){ housePicks(); }
   });
 
   /* Safety net. Some preview and embedded environments don't
